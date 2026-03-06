@@ -1,5 +1,5 @@
 import { BackButton, WhatsappIcon, Card, CitizenHomeCard, CitizenInfoLabel, PrivateRoute, AdvertisementModuleCard } from "@djb25/digit-ui-react-components";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useRouteMatch, useHistory, Link } from "react-router-dom";
 import ErrorBoundary from "../../components/ErrorBoundaries";
@@ -83,6 +83,12 @@ const Home = ({
   sourceUrl = "https://s3.ap-south-1.amazonaws.com/egov-qa-assets";
   const pdfUrl = "https://pg-egov-assets.s3.ap-south-1.amazonaws.com/Upyog+Code+and+Copyright+License_v1.pdf"
   const history = useHistory();
+  useEffect(() => {
+    const userType = userDetails?.info?.type?.toUpperCase();
+    if (userType === "EMPLOYEE") {
+      history.push("/digit-ui/employee");
+    }
+  }, [userDetails, history]);
   const handleClickOnWhatsApp = (obj) => {
     window.open(obj);
   };
