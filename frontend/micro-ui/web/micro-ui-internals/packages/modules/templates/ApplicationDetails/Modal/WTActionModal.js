@@ -51,37 +51,37 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
   /* 
    We have used this hook as it is already defined in FSM, 
    and we have used it here to fetch vendor data when the state is "PENDING_FOR_VEHICLE_DRIVER_ASSIGN". */
-  
+
   const { data: dsoData, isLoading: isLoading, isSuccess: isDsoSuccess, error: dsoError, refetch } = Digit.Hooks.fsm.useVendorSearch({
     tenantId,
     config: { enabled: action?.state === "PENDING_FOR_VEHICLE_DRIVER_ASSIGN" },
   });
-  
+
   /*  
    This is used to filter vendors from `dsoData` that have an additional 
    description field with the value "WT".The filtered vendors are then stored in the `vendorDescription` array with their names 
    as code, name, and i18nKey */
-  
+
   let vendorDescription = [];
   dsoData?.vendor?.map((item) => {
-    if (item?.additionalDetails?.description === "WT") {
-      vendorDescription.push({ code: item?.name, name: item?.name, i18nKey: item?.name, vendorId: item?.id});
+    if (item?.additionalDetails?.description === "WT" || item?.additionalDetails?.serviceType === "WT") {
+      vendorDescription.push({ code: item?.name, name: item?.name, i18nKey: item?.name, vendorId: item?.id });
     }
   });
 
-/* 
-   We have used this hook as it is already defined in FSM,
-   and we have used it here to fetch vehicle data when the system state is "DELIVERY_PENDING". */
-  
-  const { data:vehicleData,isSuccess } = Digit.Hooks.fsm.useVehiclesSearch({
+  /* 
+     We have used this hook as it is already defined in FSM,
+     and we have used it here to fetch vehicle data when the system state is "DELIVERY_PENDING". */
+
+  const { data: vehicleData, isSuccess } = Digit.Hooks.fsm.useVehiclesSearch({
     tenantId,
     config: { enabled: action?.state === "DELIVERY_PENDING" },
   });
 
-/*  
-   This is used to extract vehicle details from `vehicleData` and store them in the `vehicleDescription` array. 
-   Each entry contains the vehicle's registration number and tanker capacity.  */
-  
+  /*  
+     This is used to extract vehicle details from `vehicleData` and store them in the `vehicleDescription` array. 
+     Each entry contains the vehicle's registration number and tanker capacity.  */
+
   let vehicleDescription = [];
   vehicleData?.vehicle?.map((item) => {
     vehicleDescription.push({
@@ -132,10 +132,10 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
       }
     })();
   }, [file]);
-  
+
 
   function submit(data) {
-      let workflow = { action: action?.action, comments: data?.comments, businessService, moduleName: moduleCode };
+    let workflow = { action: action?.action, comments: data?.comments, businessService, moduleName: moduleCode };
     if (uploadedFile)
       workflow["documents"] = [
         {
@@ -151,18 +151,18 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
     if (action?.state === "DELIVERY_PENDING") {
       applicationData.vehicleId = selectVehicle?.vehicleId;
     };
-   /*  
- * Constructs the request payload based on the business service type.  
- * If `businessService` is "watertanker", wraps `applicationData` in `waterTankerBookingDetail`.  
- * Otherwise, wraps it in `mobileToiletBookingDetail`.  
- *  
- * The payload is then passed to `submitAction` for processing.  
- */
+    /*  
+  * Constructs the request payload based on the business service type.  
+  * If `businessService` is "watertanker", wraps `applicationData` in `waterTankerBookingDetail`.  
+  * Otherwise, wraps it in `mobileToiletBookingDetail`.  
+  *  
+  * The payload is then passed to `submitAction` for processing.  
+  */
     let requestPayload = businessService === "watertanker"
       ? { waterTankerBookingDetail: { ...applicationData, workflow } }
       : { mobileToiletBookingDetail: { ...applicationData, workflow } };
-     submitAction(requestPayload);
-      }
+    submitAction(requestPayload);
+  }
 
   useEffect(() => {
     if (action) {
@@ -176,14 +176,14 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
           selectedVendor,
           setSelectedVendor,
           vendorDescription: dsoData ? vendorDescription : undefined,
-          vehicleDescription: vehicleData ? vehicleDescription : undefined, 
+          vehicleDescription: vehicleData ? vehicleDescription : undefined,
           selectVehicle,
           setSelectVehicle,
         })
       );
-      
+
     }
-  },[action, approvers, uploadedFile, dsoData,selectVehicle,vehicleData]);
+  }, [action, approvers, uploadedFile, dsoData, selectVehicle, vehicleData]);
 
   return action && config.form ? (
     <Modal
@@ -192,10 +192,10 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
       actionCancelLabel={t(config.label.cancel)}
       actionCancelOnSubmit={closeModal}
       actionSaveLabel={t(config.label.submit)}
-      actionSaveOnSubmit={() => {}}
+      actionSaveOnSubmit={() => { }}
       formId="modal-action"
     >
-       
+
       <FormComposer
         config={config.form}
         noBoxShadow
@@ -205,7 +205,7 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
         defaultValues={defaultValues}
         formId="modal-action"
       />
-      
+
     </Modal>
   ) : (
     <Loader />
