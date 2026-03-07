@@ -135,7 +135,17 @@ const EmployeeApp = ({
           />
           <div className={`main ${DSO ? "m-auto" : ""}`}>
             <div className="employee-app-wrapper">
-              <ErrorBoundary initData={initData}>
+              <ErrorBoundary
+                initData={initData}
+                goToHome={() => {
+                  if (window.history.length > 1) {
+                    window.history.back();
+                  } else {
+                    const path = Digit.UserService.getType() === "employee" ? "/digit-ui/employee" : "/digit-ui/citizen";
+                    window.location.href = path;
+                  }
+                }}
+              >
                 <AppModules stateCode={stateCode} userType="employee" modules={modules} appTenants={appTenants} />
               </ErrorBoundary>
             </div>

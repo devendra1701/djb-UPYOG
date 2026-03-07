@@ -2,18 +2,18 @@ import React from "react";
 import ErrorComponent from "./ErrorComponent";
 
 const Redircter = () => {
-  console.log("Redircter")
   const path = Digit.UserService.getType() === "employee" ? "/digit-ui/employee/user/error" : "/digit-ui/citizen/error";
+
   if (
     window.location.href.includes("employee/user/error") ||
     window.location.href.includes("citizen/error") ||
     process.env.NODE_ENV === "development"
   ) {
-    //do nothing
-  }else{
+  } else {
     window.location.href = path;
   }
-  return <span></span>;
+
+  return null;
 };
 
 class ErrorBoundary extends React.Component {
@@ -23,14 +23,14 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError(error) {
-    console.log("getDerivedStateFromError",error)
+    console.log("getDerivedStateFromError", error);
     // Update state so the next render will show the fallback UI.
     return { error: error?.message, hasError: true, errorStack: error?.stack };
   }
 
   componentDidCatch(error, errorInfo) {
     // Catch errors in any components below and re-render with error message
-    console.log("componentDidCatch",error)
+    console.log("componentDidCatch", error);
     this.setState({ error: error?.message, hasError: true, errorStack: error?.stack });
     // You can also log error messages to an error reporting service here
   }
@@ -43,7 +43,7 @@ class ErrorBoundary extends React.Component {
       return (
         <div className="error-boundary">
           <Redircter />
-          <ErrorComponent initData={this.props.initData} />
+          <ErrorComponent initData={this.props.initData} goToHome={this.props.goToHome} />
 
           {/* <summary>Something went wrong</summary>
           <details style={{ whiteSpace: "pre-wrap" }}>

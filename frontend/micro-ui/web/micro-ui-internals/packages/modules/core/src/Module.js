@@ -65,7 +65,16 @@ export const DigitUI = ({ stateCode, registry, enabledModules, moduleReducers })
 
   return (
     <div>
-      <ErrorBoundary>
+      <ErrorBoundary
+        goToHome={() => {
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            const path = Digit.UserService.getType() === "employee" ? "/digit-ui/employee" : "/digit-ui/citizen";
+            window.location.href = path;
+          }
+        }}
+      >
         <QueryClientProvider client={queryClient}>
           <ComponentProvider.Provider value={registry}>
             <PrivacyProvider.Provider

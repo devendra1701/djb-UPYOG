@@ -11,6 +11,7 @@ Axios.interceptors.response.use(
   (res) => res,
   (err) => {
     const isEmployee = window.location.pathname.split("/").includes("employee");
+    const kc = window.keycloak;
     if (err?.response?.data?.Errors) {
       for (const error of err.response.data.Errors) {
         console.error("🚀🚀🚀🚀 API ERROR:", error);
@@ -18,9 +19,13 @@ Axios.interceptors.response.use(
         if (error?.message?.includes("InvalidAccessTokenException")) {
           localStorage.clear();
           sessionStorage.clear();
-          window.location.href =
-            (isEmployee ? "/digit-ui/employee/user/login" : "/digit-ui/citizen/select-language") +
-            `?from=${encodeURIComponent(window.location.pathname + window.location.search)}`;
+          if (kc) {
+            kc.logout();
+          } else {
+            window.location.href =
+              (isEmployee ? "/digit-ui/employee/user/language-selection" : "/digit-ui/citizen/login") +
+              `?from=${encodeURIComponent(window.location.pathname + window.location.search)}`;
+          }
         } else if (
           error?.message?.toLowerCase()?.includes("internal server error") ||
           error?.message?.toLowerCase()?.includes("some error occured")

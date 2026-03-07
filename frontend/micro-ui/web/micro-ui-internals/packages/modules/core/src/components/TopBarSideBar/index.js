@@ -4,7 +4,6 @@ import TopBar from "./TopBar";
 import { useHistory } from "react-router-dom";
 import SideBar from "./SideBar";
 import LogoutDialog from "../Dialog/LogoutDialog";
-import { getKeycloak } from "../../pages/employee/Login/keyCloak";
 const TopBarSideBar = ({
   t,
   stateInfo,
@@ -31,10 +30,9 @@ const TopBarSideBar = ({
     if (!CITIZEN) {
       try {
         // await Digit.UserService.logoutUser();
-        const kc = getKeycloak();
+        const kc = window.keycloak;
 
         // 🔥 Important: clear FIRST
-        Digit.SessionStorage.clear();
         sessionStorage.clear();
         localStorage.clear();
 
