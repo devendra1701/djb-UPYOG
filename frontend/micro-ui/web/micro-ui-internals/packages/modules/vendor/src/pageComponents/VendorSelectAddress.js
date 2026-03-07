@@ -11,22 +11,20 @@ const VendorSelectAddress = ({ t, config, onSelect, userType, formData }) => {
     userType === "employee"
       ? allCities.filter((city) => city.code === tenantId)
       : pincode
-      ? allCities.filter((city) => city?.pincode?.some((pin) => pin == pincode))
-      : allCities;
-let property = sessionStorage?.getItem("Digit_FSM_PT")
-if (property !== "undefined")
-{
-  property = JSON.parse(sessionStorage?.getItem("Digit_FSM_PT"))
-}
-console.log("properfferrfrty",property)
-let cityDetail={}
-if (property)
-{
-cityDetail = cities.filter((city) =>{
-return city.code == property?.propertyDetails?.address?.tenantId
-})
-}
-  const [selectedCity, setSelectedCity] = useState(() =>formData?.address?.city ||cityDetail?.[0] ||  null);
+        ? allCities.filter((city) => city?.pincode?.some((pin) => pin == pincode))
+        : allCities;
+  let property = sessionStorage?.getItem("Digit_FSM_PT")
+  if (property !== "undefined") {
+    property = JSON.parse(sessionStorage?.getItem("Digit_FSM_PT"))
+  }
+  console.log("properfferrfrty", property)
+  let cityDetail = {}
+  if (property) {
+    cityDetail = cities.filter((city) => {
+      return city.code == property?.propertyDetails?.address?.tenantId
+    })
+  }
+  const [selectedCity, setSelectedCity] = useState(() => formData?.address?.city || cityDetail?.[0] || null);
   const { data: fetchedLocalities } = Digit.Hooks.useBoundaryLocalities(
     selectedCity?.code,
     "revenue",
@@ -35,9 +33,9 @@ return city.code == property?.propertyDetails?.address?.tenantId
     },
     t
   );
- 
+
   const [localities, setLocalities] = useState();
-  const [selectedLocality, setSelectedLocality] = useState(()=>property?.propertyDetails?.address?.locality || formData?.cpt?.details?.address?.locality|| formData?.address?.locality);
+  const [selectedLocality, setSelectedLocality] = useState(() => property?.propertyDetails?.address?.locality || formData?.cpt?.details?.address?.locality || formData?.address?.locality);
 
   useEffect(() => {
     if (cities) {
@@ -51,7 +49,7 @@ return city.code == property?.propertyDetails?.address?.tenantId
     if (selectedCity && fetchedLocalities) {
       let __localityList = fetchedLocalities;
       let filteredLocalityList = [];
-console.log("formData?.address?.locality",formData?.address?.locality,formData?.cpt?.details?.address?.locality,property?.propertyDetails?.address?.locality)
+      console.log("formData?.address?.locality", formData?.address?.locality, formData?.cpt?.details?.address?.locality, property?.propertyDetails?.address?.locality)
       if (formData?.address?.locality) {
         setSelectedLocality(formData.address.locality);
       }
@@ -61,7 +59,7 @@ console.log("formData?.address?.locality",formData?.address?.locality,formData?.
       else if (property?.propertyDetails?.address?.locality) {
         setSelectedLocality(property?.propertyDetails?.address?.locality);
       }
-      
+
 
       if (formData?.address?.pincode) {
         filteredLocalityList = __localityList.filter((obj) => obj.pincode?.find((item) => item == formData.address.pincode));
@@ -101,14 +99,14 @@ console.log("formData?.address?.locality",formData?.address?.locality,formData?.
 
   if (userType === "employee") {
     return (
-      <div>
+      <div className="">
         <LabelFieldPair>
           <CardLabel className="card-label-smaller">
             {t("MYCITY_CODE_LABEL")}
             {config.isMandatory ? " * " : null}
           </CardLabel>
           <Dropdown
-            className="form-field"
+            className=""
             isMandatory
             selected={cities?.length === 1 ? cities[0] : selectedCity}
             disable={cities?.length === 1}
@@ -124,7 +122,7 @@ console.log("formData?.address?.locality",formData?.address?.locality,formData?.
             {config.isMandatory ? " * " : null}
           </CardLabel>
           <Dropdown
-            className="form-field"
+            className=""
             isMandatory
             selected={selectedLocality}
             option={localities}

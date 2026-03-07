@@ -57,7 +57,7 @@ const VendorDetails = ({ t, config, onSelect, userType, formData, ownerIndex }) 
   const [micrNo, setmicrNo] = useState("");
   const [PhoneNo, setPhoneNo] = useState("");
   const [ContactPerson, setContactPerson] = useState("");
-  const [Company,setCompany] = useState("");
+  const [Company, setCompany] = useState("");
 
   const [showToast, setShowToast] = useState(null);
 
@@ -177,7 +177,7 @@ const VendorDetails = ({ t, config, onSelect, userType, formData, ownerIndex }) 
     setContactPerson(e.target.value);
   }
 
-  function setcompanyname(e){
+  function setcompanyname(e) {
     setCompany(e.target.value);
   }
 
@@ -270,416 +270,418 @@ const VendorDetails = ({ t, config, onSelect, userType, formData, ownerIndex }) 
         onSelect={goNext}
         // onSkip={onSkip}
         t={t}
-        // isDisabled={!applicantName || !mobileNumber || !emailId}
+      // isDisabled={!applicantName || !mobileNumber || !emailId}
       >
-        <div>
-          <CardLabel>{`${t("VENDOR_ID")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="VendorId"
-            value={VendorId}
-            //placeholder={"Enter IFSC Code"}
-            onChange={setvendorid}
-            style={{ width: "50%" }}
-            maxLength={11}
-            ValidationRequired={false}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for IFSC code
-              type: "text",
-              title: t("INVALID_VENDOR_ID"),
-            })}
-          />
-
-          <CardLabel>{`${t("IFSC_CODE")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="IFSC"
-            value={IFSC}
-            placeholder={"Enter IFSC Code"}
-            onChange={setvendorifsc}
-            style={{ width: "50%" }}
-            maxLength={11}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[A-Z]{4}0[A-Z0-9]{6}$", // validation for IFSC code
-              type: "text",
-              title: t("INVALID_IFSC_CODE_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>
-            {`${t("VENDOR_BANK_NAME")}`} <span className="check-page-link-button">*</span>
-          </CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="bankName"
-            placeholder={"Bank Name Auto Select"}
-            style={{ width: "50%" }}
-            value={Bank}
-            onChange={setvendorbank}
-            disabled={true}
-          />
-
-          <CardLabel>
-            {`${t("VENDOR_BANK_BRANCH_NAME")}`} <span className="check-page-link-button">*</span>
-          </CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="BankbranchName"
-            value={BankbranchName}
-            style={{ width: "50%" }}
-            placeholder={"Bank Branch Name Auto Select"}
-            onChange={setBankbranch}
-            disabled={false}
-          />
-
-          <CardLabel>
-            {`${t("VENDOR_MICR_NO")}`} <span className="check-page-link-button">*</span>
-          </CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="MicrNo"
-            value={micrNo}
-            style={{ width: "50%" }}
-            placeholder={"MICR No"}
-            onChange={setmicrNo}
-            disabled={false}
-          />
-
-          <CardLabel>{`${t("ACCOUNT_NO")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="AccountNo"
-            value={AccountNo}
-            onChange={setvendoraccountno}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "[0-9]{9,18}", // validation for account number
-              type: "text",
-              title: t("INVALID_ACCOUNT_NO_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("PHONE_NO")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="PhoneNo"
-            value={PhoneNo}
-            onChange={setphoneno}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "[0-9]{9,18}", // validation for account number
-              type: "text",
-              title: t("INVALID_ACCOUNT_NO_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("CONTACT_PERSON")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="ContactPerson"
-            value={ContactPerson}
-            onChange={setcontactperson}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for account number
-              type: "text",
-              title: t("INVALID_ACCOUNT_NO_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("COMPANY_NAME")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="Company"
-            value={Company}
-            onChange={setcompanyname}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for account number
-              type: "text",
-              title: t("INVALID_ACCOUNT_NO_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("PAN_NO")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="PanNo"
-            value={PanNo}
-            onChange={setpanno}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "[A-Z]{5}[0-9]{4}[A-Z]{1}", // validation for PAN number
-              type: "text",
-              title: t("INVALID_PAN_NO_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("GST_NO")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="GstNo"
-            value={GstNo}
-            onChange={setgstno}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$", // validation for GST number
-              type: "text",
-              title: t("INVALID_GST_NO_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("GST_REGISTERED_STATE/UT")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="GstState"
-            value={GstState}
-            onChange={setgststate}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for GST state
-              type: "text",
-              title: t("PT_NAME_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("REGISTRATION_NO")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="RegistrationNo"
-            value={RegistrationNo}
-            onChange={setregistrationno}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for registration number
-              type: "text",
-              title: t("INVALID_REGISTRATION_NO_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("EPF_NO")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="EpfNo"
-            value={EpfNo}
-            onChange={setepfno}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[a-zA-Z0-9/-]{1,15}$", // validation for EPF number
-              type: "text",
-              title: t("INVALID_EPF_NO_ERROR_MESSAGE"),
-            })}
-          />
-
-          <CardLabel>{`${t("ESI_NO")}`}</CardLabel>
-          <TextInput
-            t={t}
-            type={"text"}
-            isMandatory={false}
-            optionKey="i18nKey"
-            name="EsiNo"
-            value={EsiNo}
-            onChange={setesino}
-            style={{ width: "50%" }}
-            ValidationRequired={true}
-            {...(validation = {
-              isRequired: true,
-              pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for ESI number
-              type: "text",
-              title: t("INVALID_ESI_NO_ERROR_MESSAGE"),
-            })}
-          />
-
+        <div className="vendor-details-two-column">
           <div>
-            {t("VENDOR_TYPE")}
-            <div className="tooltip" style={{ width: "12px", height: "5px", marginLeft: "10px", display: "inline-flex", alignItems: "center" }}>
-              <span
-                className="tooltiptext"
+            <CardLabel>{`${t("VENDOR_ID")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="VendorId"
+              value={VendorId}
+              //placeholder={"Enter IFSC Code"}
+              onChange={setvendorid}
+              style={{ width: "100%" }}
+              maxLength={11}
+              ValidationRequired={false}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for IFSC code
+                type: "text",
+                title: t("INVALID_VENDOR_ID"),
+              })}
+            />
+
+            <CardLabel>{`${t("IFSC_CODE")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="IFSC"
+              value={IFSC}
+              placeholder={"Enter IFSC Code"}
+              onChange={setvendorifsc}
+              style={{ width: "100%" }}
+              maxLength={11}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[A-Z]{4}0[A-Z0-9]{6}$", // validation for IFSC code
+                type: "text",
+                title: t("INVALID_IFSC_CODE_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>
+              {`${t("VENDOR_BANK_NAME")}`} <span className="check-page-link-button">*</span>
+            </CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="bankName"
+              placeholder={"Bank Name Auto Select"}
+              style={{ width: "100%" }}
+              value={Bank}
+              onChange={setvendorbank}
+              disabled={true}
+            />
+
+            <CardLabel>
+              {`${t("VENDOR_BANK_BRANCH_NAME")}`} <span className="check-page-link-button">*</span>
+            </CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="BankbranchName"
+              value={BankbranchName}
+              style={{ width: "100%" }}
+              placeholder={"Bank Branch Name Auto Select"}
+              onChange={setBankbranch}
+              disabled={false}
+            />
+
+            <CardLabel>
+              {`${t("VENDOR_MICR_NO")}`} <span className="check-page-link-button">*</span>
+            </CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="MicrNo"
+              value={micrNo}
+              style={{ width: "100%" }}
+              placeholder={"MICR No"}
+              onChange={setmicrNo}
+              disabled={false}
+            />
+
+            <CardLabel>{`${t("ACCOUNT_NO")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="AccountNo"
+              value={AccountNo}
+              onChange={setvendoraccountno}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "[0-9]{9,18}", // validation for account number
+                type: "text",
+                title: t("INVALID_ACCOUNT_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("PHONE_NO")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="PhoneNo"
+              value={PhoneNo}
+              onChange={setphoneno}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "[0-9]{9,18}", // validation for account number
+                type: "text",
+                title: t("INVALID_ACCOUNT_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("CONTACT_PERSON")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="ContactPerson"
+              value={ContactPerson}
+              onChange={setcontactperson}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for account number
+                type: "text",
+                title: t("INVALID_ACCOUNT_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("COMPANY_NAME")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="Company"
+              value={Company}
+              onChange={setcompanyname}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for account number
+                type: "text",
+                title: t("INVALID_ACCOUNT_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("PAN_NO")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="PanNo"
+              value={PanNo}
+              onChange={setpanno}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "[A-Z]{5}[0-9]{4}[A-Z]{1}", // validation for PAN number
+                type: "text",
+                title: t("INVALID_PAN_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("GST_NO")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="GstNo"
+              value={GstNo}
+              onChange={setgstno}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$", // validation for GST number
+                type: "text",
+                title: t("INVALID_GST_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("GST_REGISTERED_STATE/UT")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="GstState"
+              value={GstState}
+              onChange={setgststate}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for GST state
+                type: "text",
+                title: t("PT_NAME_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("REGISTRATION_NO")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="RegistrationNo"
+              value={RegistrationNo}
+              onChange={setregistrationno}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for registration number
+                type: "text",
+                title: t("INVALID_REGISTRATION_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("EPF_NO")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="EpfNo"
+              value={EpfNo}
+              onChange={setepfno}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[a-zA-Z0-9/-]{1,15}$", // validation for EPF number
+                type: "text",
+                title: t("INVALID_EPF_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <CardLabel>{`${t("ESI_NO")}`}</CardLabel>
+            <TextInput
+              t={t}
+              type={"text"}
+              isMandatory={false}
+              optionKey="i18nKey"
+              name="EsiNo"
+              value={EsiNo}
+              onChange={setesino}
+              style={{ width: "100%" }}
+              ValidationRequired={true}
+              {...(validation = {
+                isRequired: true,
+                pattern: "^[a-zA-Z0-9/-]{1,20}$", // validation for ESI number
+                type: "text",
+                title: t("INVALID_ESI_NO_ERROR_MESSAGE"),
+              })}
+            />
+
+            <div>
+              {t("VENDOR_TYPE")}
+              <div className="tooltip" style={{ width: "12px", height: "5px", marginLeft: "10px", display: "inline-flex", alignItems: "center" }}>
+                <span
+                  className="tooltiptext"
+                  style={{
+                    whiteSpace: "pre-wrap",
+                    fontSize: "small",
+                    wordWrap: "break-word",
+                    width: "300px",
+                    marginLeft: "15px",
+                    marginBottom: "-10px",
+                  }}
+                >
+                  {`${t(`AST_CLASSIFICATION_ASSET`)}`}
+                </span>
+              </div>
+            </div>
+            <Controller
+              control={control}
+              name={"VendorType"}
+              defaultValue={VendorType}
+              rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
+              render={(props) => (
+                <Dropdown
+                  className="form-field"
+                  selected={VendorType}
+                  select={setVendorType}
+                  option={[
+                    { i18nKey: "Supplier", code: "SUPPLIER" },
+                    { i18nKey: "Contractor", code: "CONTRACTOR" },
+                  ]}
+                  optionKey="i18nKey"
+                  placeholder={"Select"}
+                  t={t}
+                />
+              )}
+            />
+
+            {/* dropdown for vendor category  */}
+            <div>
+              {t("VENOR_CATEGORY")}
+              <div className="tooltip" style={{ width: "12px", height: "5px", marginLeft: "10px", display: "inline-flex", alignItems: "center" }}>
+                <span
+                  className="tooltiptext"
+                  style={{
+                    whiteSpace: "pre-wrap",
+                    fontSize: "small",
+                    wordWrap: "break-word",
+                    width: "300px",
+                    marginLeft: "15px",
+                    marginBottom: "-10px",
+                  }}
+                >
+                  {/* {`${t(`AST_SOURCE_OF_FUNDING`)}`} */}
+                </span>
+              </div>
+            </div>
+            <Controller
+              control={control}
+              name={"VendorCategory"}
+              defaultValue={VendorCategory}
+              rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
+              render={(props) => (
+                <Dropdown
+                  className="form-field"
+                  selected={VendorCategory}
+                  select={setVendorCategory}
+                  //option={sourcefinance}   this loads the vendor category
+                  option={[
+                    { i18nKey: "Firm", code: "FIRM" },
+                    { i18nKey: "Individual", code: "Individual" },
+                  ]}
+                  optionKey="i18nKey"
+                  placeholder={"Select"}
+                  t={t}
+                />
+              )}
+            />
+
+            <div>
+              {t("STATUS")}
+              <div
+                className="tooltip"
                 style={{
-                  whiteSpace: "pre-wrap",
-                  fontSize: "small",
-                  wordWrap: "break-word",
-                  width: "300px",
-                  marginLeft: "15px",
-                  marginBottom: "-10px",
+                  width: "12px",
+                  height: "5px",
+                  marginLeft: "10px",
+                  display: "inline-flex",
+                  alignItems: "center",
                 }}
               >
-                {`${t(`AST_CLASSIFICATION_ASSET`)}`}
-              </span>
+                <span
+                  className="tooltiptext"
+                  style={{
+                    whiteSpace: "pre-wrap",
+                    fontSize: "small",
+                    wordWrap: "break-word",
+                    width: "300px",
+                    marginLeft: "15px",
+                    marginBottom: "-10px",
+                  }}
+                >
+                  {`${t(`AST_CLASSIFICATION_ASSET`)}`}
+                </span>
+              </div>
             </div>
+            <Controller
+              control={control}
+              name={"Status"}
+              defaultValue={Status}
+              rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
+              render={(props) => (
+                <Dropdown
+                  className="form-field"
+                  selected={Status}
+                  select={setStatus}
+                  option={[
+                    { i18nKey: "Active", code: "ACTIVE" },
+                    { i18nKey: "Inactive", code: "INACTIVE" },
+                  ]}
+                  optionKey="i18nKey"
+                  placeholder={"Select"}
+                  t={t}
+                />
+              )}
+            />
           </div>
-          <Controller
-            control={control}
-            name={"VendorType"}
-            defaultValue={VendorType}
-            rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
-            render={(props) => (
-              <Dropdown
-                className="form-field"
-                selected={VendorType}
-                select={setVendorType}
-                option={[
-                  { i18nKey: "Supplier", code: "SUPPLIER" },
-                  { i18nKey: "Contractor", code: "CONTRACTOR" },
-                ]}
-                optionKey="i18nKey"
-                placeholder={"Select"}
-                t={t}
-              />
-            )}
-          />
-
-          {/* dropdown for vendor category  */}
-          <div>
-            {t("VENOR_CATEGORY")}
-            <div className="tooltip" style={{ width: "12px", height: "5px", marginLeft: "10px", display: "inline-flex", alignItems: "center" }}>
-              <span
-                className="tooltiptext"
-                style={{
-                  whiteSpace: "pre-wrap",
-                  fontSize: "small",
-                  wordWrap: "break-word",
-                  width: "300px",
-                  marginLeft: "15px",
-                  marginBottom: "-10px",
-                }}
-              >
-                {/* {`${t(`AST_SOURCE_OF_FUNDING`)}`} */}
-              </span>
-            </div>
-          </div>
-          <Controller
-            control={control}
-            name={"VendorCategory"}
-            defaultValue={VendorCategory}
-            rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
-            render={(props) => (
-              <Dropdown
-                className="form-field"
-                selected={VendorCategory}
-                select={setVendorCategory}
-                //option={sourcefinance}   this loads the vendor category
-                option={[
-                  { i18nKey: "Firm", code: "FIRM" },
-                  { i18nKey: "Individual", code: "Individual" },
-                ]}
-                optionKey="i18nKey"
-                placeholder={"Select"}
-                t={t}
-              />
-            )}
-          />
-
-          <div>
-            {t("STATUS")}
-            <div
-              className="tooltip"
-              style={{
-                width: "12px",
-                height: "5px",
-                marginLeft: "10px",
-                display: "inline-flex",
-                alignItems: "center",
-              }}
-            >
-              <span
-                className="tooltiptext"
-                style={{
-                  whiteSpace: "pre-wrap",
-                  fontSize: "small",
-                  wordWrap: "break-word",
-                  width: "300px",
-                  marginLeft: "15px",
-                  marginBottom: "-10px",
-                }}
-              >
-                {`${t(`AST_CLASSIFICATION_ASSET`)}`}
-              </span>
-            </div>
-          </div>
-          <Controller
-            control={control}
-            name={"Status"}
-            defaultValue={Status}
-            rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
-            render={(props) => (
-              <Dropdown
-                className="form-field"
-                selected={Status}
-                select={setStatus}
-                option={[
-                  { i18nKey: "Active", code: "ACTIVE" },
-                  { i18nKey: "Inactive", code: "INACTIVE" },
-                ]}
-                optionKey="i18nKey"
-                placeholder={"Select"}
-                t={t}
-              />
-            )}
-          />
         </div>
       </FormStep>
     </React.Fragment>

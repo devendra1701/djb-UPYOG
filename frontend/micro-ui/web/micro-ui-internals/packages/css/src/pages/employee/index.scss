@@ -771,61 +771,62 @@
   }
 }
 
-/* Anchors the whole component to the right edge */
 .ra-wrapper {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start;
+  align-items: center;
 
-  /* Change from relative/static to absolute/fixed */
   position: absolute;
   right: 0;
   top: 0;
-  height: 100%; /* Or calc(100% - 40px) depending on your padding */
+  height: 100%;
 
-  /* Ensure it sits on top of everything else */
   z-index: 1000;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* Prevents the wrapper itself from blocking clicks on the page when closed */
   pointer-events: none;
 }
 
-/* The parent container sets the outer shape and shadow */
 .ra-container {
-  pointer-events: auto; /* Re-enable clicks for the card itself */
+  pointer-events: auto;
   display: flex;
   flex-direction: row;
-  background: rgba(255, 255, 255, 0.7); /* Slightly more opaque for overlay readability */
-  border-radius: 24px 0 0 24px; /* Rounded only on the left side since it's flush right */
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 24px 0 0 24px;
 
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
 
   border: 1px solid rgba(255, 255, 255, 0.4);
 
-  /* Stronger shadow to emphasize the 'float' effect */
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1), 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  box-shadow:
+    -10px 0 30px rgba(0, 0, 0, 0.1),
+    0 8px 32px 0 rgba(31, 38, 135, 0.15);
 
   overflow: hidden;
-  height: 100%;
-  transition: transform 0.3s ease;
+  height: 50%;
+  transition: transform 0.3s ease, height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* --- THE FIX: Sliding Door Approach --- */
-/* When closed, width is exactly 0px, causing NO gaps. */
+.ra-container.open {
+  height: 100%;
+}
+
+
 .ra-content-door {
   width: 0px;
   overflow: hidden;
   transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.2) 100%);
 }
+
 .ra-container.open .ra-content-door {
   width: 380px;
   border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* The inner content stays a fixed size so it doesn't wrap/squish while the door is opening */
 .ra-content-inner {
   width: 380px;
   height: 100%;
@@ -835,7 +836,6 @@
   justify-content: center;
 }
 
-/* --- Header & Layout Alignments --- */
 .ra-header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 24px;
@@ -873,7 +873,6 @@
   background: #eff6ff;
 }
 
-/* --- Timeline Area --- */
 .ra-timeline::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
@@ -901,7 +900,6 @@
   margin-bottom: 16px;
 }
 
-/* Indicator column strictly aligned */
 .ra-indicator {
   display: flex;
   flex-direction: column;
@@ -937,7 +935,6 @@
   flex: 1;
   padding-bottom: 8px;
   padding-top: 2px;
-  /* Micro-adjustment for text alignment */
 }
 
 .ra-text {
@@ -961,7 +958,7 @@
 .ra-module {
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 11px;
-  background: rgba(255, 255, 255, 0.4); /* Glassy tag */
+  background: rgba(255, 255, 255, 0.4);
   color: #1e293b;
   padding: 4px 8px;
   border-radius: 6px;
@@ -976,9 +973,8 @@
   font-weight: 500;
 }
 
-/* --- Right Side Toggle Strip (Redesigned UI) --- */
 .ra-strip {
-  width: 50px; /* Slimmer strip since it's an overlay */
+  width: 50px;
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.8);
   display: flex;
@@ -1030,5 +1026,116 @@
 
 .ra-history-icon {
   transform: rotate(90deg);
-  /* Re-orients the clock icon in vertical mode */
+}
+
+.vendor-two-column-form .employeeCard {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  row-gap: 1rem;
+}
+
+.vendor-two-column-form .employeeCard>.card-header,
+.vendor-two-column-form .employeeCard>header,
+.vendor-two-column-form .employeeCard>.submit-bar,
+.vendor-two-column-form .employeeCard>.primary-label-btn,
+.vendor-two-column-form .employeeCard>.break-line {
+  grid-column: 1 / -1;
+}
+
+.vendor-two-column-form .employeeCard .field-container,
+.vendor-two-column-form .employeeCard .field {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .vendor-two-column-form .employeeCard {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vendor-two-column-form .digit-card,
+.vendor-two-column-form .employeeCard,
+.vendor-two-column-form .card {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 15px;
+  align-items: flex-start;
+}
+
+.vendor-two-column-form .digit-card>.card-header,
+.vendor-two-column-form .digit-card>.card-sub-header,
+.vendor-two-column-form .digit-card>header,
+.vendor-two-column-form .employeeCard>.card-header,
+.vendor-two-column-form .employeeCard>.card-sub-header,
+.vendor-two-column-form .employeeCard>header,
+.vendor-two-column-form .card>.card-header,
+.vendor-two-column-form .card>.card-sub-header,
+.vendor-two-column-form .card>header,
+.vendor-two-column-form .card>hr {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+
+  .vendor-two-column-form .digit-card,
+  .vendor-two-column-form .employeeCard,
+  .vendor-two-column-form .card {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.vendor-details-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 0px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .vendor-details-two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vendor-two-column-form .input-wrap,
+.vendor-two-column-form .dropdown-wrap,
+.vendor-two-column-form .field {
+  width: 100% !important;
+}
+
+.vendor-details-two-column .input-wrap,
+.vendor-details-two-column .dropdown-wrap,
+.vendor-details-two-column .field {
+  width: 100% !important;
+}
+
+.vendor-two-column-form input,
+.vendor-two-column-form .react-date-picker {
+  width: 100% !important;
+}
+
+.vendor-details-two-column input,
+.vendor-details-two-column .react-date-picker {
+  width: 100% !important;
+}
+
+.vendor-select-address-inline {
+  display: flex !important;
+  gap: 30px;
+  width: 100%;
+}
+
+.vendor-select-address-inline>.label-field-pair {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .vendor-select-address-inline {
+    flex-direction: column !important;
+    gap: 0px;
+  }
 }

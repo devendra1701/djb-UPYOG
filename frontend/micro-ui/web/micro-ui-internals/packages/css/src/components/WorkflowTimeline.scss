@@ -1,17 +1,22 @@
 :root {
   /* -- Core Colors -- */
-  --tl-color-primary: #3b82f6; /* Blue */
-  --tl-color-success: #10b981; /* Emerald */
-  --tl-color-line: #e5e7eb;    /* Light Gray */
+  --tl-color-primary: #3b82f6;
+  /* Blue */
+  --tl-color-success: #10b981;
+  /* Emerald */
+  --tl-color-line: #e5e7eb;
+  /* Light Gray */
   --tl-bg-card: #ffffff;
   /* -- Text Colors -- */
-  --tl-text-main: #1f2937;     /* Dark Slate */
-  --tl-text-muted: #6b7280;    /* Medium Gray */
+  --tl-text-main: #1f2937;
+  /* Dark Slate */
+  --tl-text-muted: #6b7280;
+  /* Medium Gray */
   /* -- Sizing Variables -- */
-  --tl-circle-size: 26px;      
+  --tl-circle-size: 26px;
   --tl-line-width: 2px;
-  --tl-item-spacing: 20px;     
-  --tl-card-padding: 12px;     
+  --tl-item-spacing: 20px;
+  --tl-card-padding: 12px;
 }
 
 /* Ensure standard box sizing */
@@ -77,7 +82,7 @@
   z-index: 10;
   transition: all 0.3s ease;
   color: #fff;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 /* Status Styles */
@@ -97,11 +102,11 @@
   flex: 1;
   background: var(--tl-bg-card);
   border: 1px solid #f0f0f0;
-  border-radius: 8px; 
+  border-radius: 8px;
   padding: var(--tl-card-padding);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   position: relative;
-  min-width: 0; 
+  min-width: 0;
 }
 
 /* Tiny triangle pointer pointing to the circle */
@@ -124,19 +129,19 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 8px;
-  flex-wrap: nowrap; 
+  flex-wrap: wrap;
 }
 
 .timeline-title2 {
   font-weight: 600;
-  font-size: 13.5px; 
+  font-size: 13.5px;
   color: var(--tl-text-main);
   margin-right: 8px;
   line-height: 1.3;
 }
 
 .timeline-date2 {
-  font-size: 11px; 
+  font-size: 11px;
   color: var(--tl-text-muted);
   white-space: nowrap;
   background: #f9fafb;
@@ -159,11 +164,19 @@
   border-radius: 10px;
   margin-bottom: 6px;
 }
-.status-completed2 { color: #065f46; background: #d1fae5; }
-.status-current2   { color: #1e40af; background: #dbeafe; }
+
+.status-completed2 {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.status-current2 {
+  color: #1e40af;
+  background: #dbeafe;
+}
 
 .timeline-comment2 {
-  font-size: 12.5px; 
+  font-size: 12.5px;
   color: #4b5563;
   line-height: 1.4;
   background-color: #f9fafb;
@@ -185,6 +198,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -192,7 +206,7 @@
 
 /* Apply animation ONLY to the hands of the clock when the item is 'current' */
 .timeline-item2.current2 .clock-hands2 {
-  transform-origin: 12px 12px; 
+  transform-origin: 12px 12px;
   animation: spin-time2 3s linear infinite;
 }
 

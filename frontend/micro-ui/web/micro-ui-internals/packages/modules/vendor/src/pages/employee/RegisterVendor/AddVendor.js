@@ -75,6 +75,10 @@ const AddVendor = ({ parentUrl, heading }) => {
     const phone = data?.phone;
     const dob = new Date(`${data.dob}`).getTime() || new Date(`1/1/1970`).getTime();
     const additionalDetails = data?.serviceType?.code;
+    const accountNo = data?.bankDetails?.accountNumber;
+    const ifscCode = data?.bankDetails?.ifscCode;
+    const bankName = data?.bankDetails?.bankName;
+    const bankBranchName = data?.bankDetails?.branchName;
     const formData = {
       vendor: {
         tenantId: tenantId,
@@ -116,8 +120,14 @@ const AddVendor = ({ parentUrl, heading }) => {
           mobileNumber: phone,
         },
         additionalDetails: {
-          serviceType:additionalDetails, //as fetch serviceType
+          serviceType: additionalDetails, //as fetch serviceType
         },
+        bankDetails: [{
+          bankName: bankName,
+          bankBranchName: bankBranchName,
+          ifscCode: ifscCode,
+          accountNumber: accountNo,
+        }],
         vehicle: [],
         drivers: [],
         source: "WhatsApp",
@@ -132,24 +142,24 @@ const AddVendor = ({ parentUrl, heading }) => {
       onSuccess: (data, variables) => {
         setShowToast({ key: "success", action: "ADD_VENDOR" });
         setTimeout(closeToast, 5000);
-       // queryClient.invalidateQueries("DSO_SEARCH");                  // automatically open search tab after 5 seconds
-        
+        // queryClient.invalidateQueries("DSO_SEARCH");                  // automatically open search tab after 5 seconds
+
       },
     });
 
-    console.log("formdaaatataaaa",formData)
+    console.log("formdaaatataaaa", formData)
   };
   const isMobile = window.Digit.Utils.browser.isMobile();
-  
 
 
-  
+
+
   return (
     <React.Fragment>
       <div>
         <Header>{t("ES_FSM_REGISTRY_TITLE_NEW_VENDOR")}</Header>
       </div>
-      <div style={!isMobile ? { marginLeft: "-15px" } : {}}>
+      <div className="vendor-two-column-form" style={!isMobile ? { marginLeft: "-15px" } : {}}>
         <FormComposer
           isDisabled={!canSubmit}
           label={t("ES_COMMON_APPLICATION_SUBMIT")}

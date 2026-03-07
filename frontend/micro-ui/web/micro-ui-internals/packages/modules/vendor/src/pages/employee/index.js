@@ -1,11 +1,11 @@
-import { PrivateRoute,BreadCrumb,AppContainer,BackButton, CloseSvg } from "@djb25/digit-ui-react-components";
+import { PrivateRoute, BreadCrumb, AppContainer, BackButton, CloseSvg, ModuleHeader, ArrowLeft, HomeIcon } from "@djb25/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Switch, useLocation } from "react-router-dom";
 import SearchApp from "./SearchApp";
 
 const EmployeeApp = ({ path, url, userType }) => {
-  console.log("tttttttttttt",path)
+  console.log("tttttttttttt", path)
   const { t } = useTranslation();
   const location = useLocation();
   const mobileView = innerWidth <= 640;
@@ -22,8 +22,8 @@ const EmployeeApp = ({ path, url, userType }) => {
     // },
   };
 
-  
- 
+
+
 
   // const AssetBreadCrumbs = ({ location }) => {
   //   const { t } = useTranslation();
@@ -45,7 +45,6 @@ const EmployeeApp = ({ path, url, userType }) => {
   //   return <BreadCrumb style={isMobile?{display:"flex"}:{margin: "0 0 4px", color:"#000000" }}  spanStyle={{maxWidth:"min-content"}} crumbs={crumbs} />;
   // }
 
-  console.log("index page in employee")
   //const Create = Digit?.ComponentRegistryService?.getComponent("VENDOREMPCreate");
   const AddVendor = Digit.ComponentRegistryService.getComponent("AddVendor");
   const SearchVendor = Digit.ComponentRegistryService.getComponent("SearchVendor");
@@ -53,16 +52,56 @@ const EmployeeApp = ({ path, url, userType }) => {
   const AddDriver = Digit.ComponentRegistryService.getComponent("AddDriver");
   const EditVendorDetails = Digit.ComponentRegistryService.getComponent("EditVendorDetails");
   const AddVehicle = Digit.ComponentRegistryService.getComponent("AddVehicle");
-  const VendorCreate =  Digit.ComponentRegistryService.getComponent("VENDORCreate");
+  const VendorCreate = Digit.ComponentRegistryService.getComponent("VENDORCreate");
   const DriverDetails = Digit.ComponentRegistryService.getComponent("DriverDetails");
   const VehicleDetails = Digit.ComponentRegistryService.getComponent("VehicleDetails");
+
+
+  const getDynamicBreadcrumbs = () => {
+    const pathname = location.pathname;
+
+    let crumbs = [
+      { icon: HomeIcon, path: "/digit-ui/employee" },
+      { label: t("ES_COMMON_VENDOR"), path: `/digit-ui/employee/vendor/search-vendor` },
+    ];
+
+    if (pathname.includes("/registry/new-vendor")) {
+      crumbs.push({ label: t("VENDOR_CREATE_NEW_VENDOR") });
+    } else if (pathname.includes("/search-vendor")) {
+      crumbs.push({ label: t("VENDOR_SEARCH_VENDORS") });
+    } else if (pathname.includes("/registry/new-driver")) {
+      crumbs.push({ label: t("VENDOR_CREATE_NEW_DRIVER") });
+    } else if (pathname.includes("/registry/vendor-details") || pathname.includes("/registry/modify-vendor/")) {
+      crumbs.push({ label: t("VENDOR_VENDOR_DETAILS") });
+    } else if (pathname.includes("/registry/vehicle-details") || pathname.includes("/registry/modify-vehicle/")) {
+      crumbs.push({ label: t("VENDOR_VEHICLE_DETAILS") });
+    } else if (pathname.includes("/registry/new-vehicle")) {
+      crumbs.push({ label: t("VENDOR_CREATE_NEW_VEHICLE") });
+    } else if (pathname.includes("/registry/driver-details") || pathname.includes("/registry/modify-driver/")) {
+      crumbs.push({ label: t("VENDOR_DRIVER_DETAILS") });
+    } else if (pathname.includes("/registry/additionaldetails")) {
+      crumbs.push({ label: t("VENDOR_ADDITIONAL_DETAILS") });
+    }
+
+    return crumbs;
+  };
 
   return (
     <Switch>
       <AppContainer>
-      <React.Fragment>
-       <div className="ground-container">
-         {/* 
+        <React.Fragment>
+          <div className="ground-container">
+            <ModuleHeader
+              leftContent={
+                <React.Fragment>
+                  <ArrowLeft className="icon" />
+                  Back
+                </React.Fragment>
+              }
+              onLeftClick={() => window.history.back()}
+              breadcrumbs={getDynamicBreadcrumbs()}
+            />
+            {/* 
         {!isRes ? 
               <div style={isNewRegistration ? { marginLeft: "12px",display: "flex", alignItems: "center" } : { marginLeft: "-4px",display: "flex", alignItems: "center" }}>
                   <BackButton location={location} />
@@ -73,22 +112,22 @@ const EmployeeApp = ({ path, url, userType }) => {
           : null}
           <PrivateRoute exact path={`${path}/`} component={() => <ASSETLinks matchPath={path} userType={userType} />} />
           */}
-          {/* <PrivateRoute path={`${path}/additional`} component={Create} /> */}
-          <PrivateRoute path={`${path}/registry/new-vendor`} component={() => <AddVendor parentRoute={path} />} />
-          <PrivateRoute path={`${path}/search-vendor`} component={() => <SearchVendor parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/new-driver`} component={() => <AddDriver parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/vendor-details/:id`} component={() => <EditVendorDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/vehicle-details/:id`} component={() => <VehicleDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/new-vehicle`} component={() => <AddVehicle parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/additionaldetails`} component={() => <VendorCreate parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/driver-details`} component={() => <DriverDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/common-search/:id`} component={(props) => <SearchApp {...props} parentRoute={path} />} />
+            {/* <PrivateRoute path={`${path}/additional`} component={Create} /> */}
+            <PrivateRoute path={`${path}/registry/new-vendor`} component={() => <AddVendor parentRoute={path} />} />
+            <PrivateRoute path={`${path}/search-vendor`} component={() => <SearchVendor parentRoute={path} />} />
+            <PrivateRoute path={`${path}/registry/new-driver`} component={() => <AddDriver parentRoute={path} />} />
+            <PrivateRoute path={`${path}/registry/vendor-details/:id`} component={() => <EditVendorDetails parentRoute={path} />} />
+            <PrivateRoute path={`${path}/registry/vehicle-details/:id`} component={() => <VehicleDetails parentRoute={path} />} />
+            <PrivateRoute path={`${path}/registry/new-vehicle`} component={() => <AddVehicle parentRoute={path} />} />
+            <PrivateRoute path={`${path}/registry/additionaldetails`} component={() => <VendorCreate parentRoute={path} />} />
+            <PrivateRoute path={`${path}/registry/driver-details`} component={() => <DriverDetails parentRoute={path} />} />
+            <PrivateRoute path={`${path}/common-search/:id`} component={(props) => <SearchApp {...props} parentRoute={path} />} />
 
-          
-          {/* <PrivateRoute path={`${path}/new-application`} component={(props) => <Create {...props} parentRoute={path} />} /> */}
 
-        </div> 
-      </React.Fragment>
+            {/* <PrivateRoute path={`${path}/new-application`} component={(props) => <Create {...props} parentRoute={path} />} /> */}
+
+          </div>
+        </React.Fragment>
       </AppContainer>
     </Switch>
   );

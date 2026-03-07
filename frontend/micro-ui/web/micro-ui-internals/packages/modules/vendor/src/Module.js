@@ -27,6 +27,7 @@ import NewResponse from "./pages/employee/Create/NewResponse";
 import DriverDetails from "./pages/employee/RegisterDriver/DriverDetails";
 import VehicleDetails from "./pages/employee/RegisterVehicle/VehicleDetails";
 import SelectVehicleType from "./pageComponents/SelectVehicleType";
+import BankDetailsComponent from "./components/BankDetailsComponent";
 
 
 
@@ -48,11 +49,12 @@ const componentsToRegister = {
   SearchVendor,
   SelectServiceType,
   SelectVehicleType,
+  BankDetailsComponent,
   AddDriver,
   EditVendorDetails,
   AddVehicle,
   VENDORCreate,
-  VENDORCheckPage : CheckPage,
+  VENDORCheckPage: CheckPage,
   NewResponse,
   DriverDetails,
   VehicleDetails,

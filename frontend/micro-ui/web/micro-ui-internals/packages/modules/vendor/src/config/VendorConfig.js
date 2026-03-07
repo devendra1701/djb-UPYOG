@@ -166,7 +166,7 @@ const VendorConfig = (t, disabled = false) => {
         },
 
         //for city and locality
-        
+
         {
           route: "address",
           component: "VendorSelectAddress",
@@ -191,6 +191,19 @@ const VendorConfig = (t, disabled = false) => {
             defaultValue: "",
             className: "payment-form-text-input-correction",
           },
+        },
+      ],
+    },
+    {
+      head: "ES_FSM_REGISTRY_BANK_DETAILS",
+      body: [
+        {
+          route: "bank-details",
+          component: "BankDetailsComponent",
+          withoutLabel: true,
+          key: "bankDetails",
+          isMandatory: false,
+          type: "component",
         },
       ],
     },
