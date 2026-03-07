@@ -1,21 +1,19 @@
 package com.example.gateway.utils;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import org.egov.tracer.model.CustomException;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.egov.tracer.model.CustomException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
+
+import java.util.*;
 
 import static com.example.gateway.constants.GatewayConstants.*;
 
@@ -79,7 +77,7 @@ public class CommonUtils {
     }
 
 
-    public Set<String> validateRequestAndSetRequestTenantId(ServerWebExchange exchange , Map body) {
+    public Set<String> validateRequestAndSetRequestTenantId(ServerWebExchange exchange, Map body) {
 
         return getTenantIdsFromRequest(exchange.getRequest(), body);
     }
@@ -123,27 +121,57 @@ public class CommonUtils {
                 customException.setCode(HttpStatus.UNAUTHORIZED.toString());
                 throw customException;
             }
-        }
-        else {
+        } else {
             setTenantIdsFromQueryParams(request.getQueryParams(), tenantIds);
         }
 
         return tenantIds;
     }
+
+    //    public void setTenantIdsFromQueryParams(MultiValueMap<String, String> queryParams, Set<String> tenantIds) throws CustomException {
+//
+//        if (!CollectionUtils.isEmpty(queryParams) && queryParams.containsKey(REQUEST_TENANT_ID_KEY)
+//                && queryParams.get(REQUEST_TENANT_ID_KEY).size() > 0) {
+//            String tenantId = queryParams.get(REQUEST_TENANT_ID_KEY).get(0);
+//            if (tenantId.contains(",")) {
+//                tenantIds.addAll(Arrays.asList(tenantId.split(",")));
+//            } else {
+//                tenantIds.add(tenantId);
+//            }
+//        } else {
+//            throw new CustomException("TENANT_ID_MANDATORY", "TenantId is mandatory in URL for non json requests");
+//        }
+//
+//    }
     public void setTenantIdsFromQueryParams(MultiValueMap<String, String> queryParams, Set<String> tenantIds) throws CustomException {
 
-        if (!CollectionUtils.isEmpty(queryParams) && queryParams.containsKey(REQUEST_TENANT_ID_KEY)
-                && queryParams.get(REQUEST_TENANT_ID_KEY).size() > 0) {
-            String tenantId = queryParams.get(REQUEST_TENANT_ID_KEY).get(0);
-            if (tenantId.contains(",")) {
-                tenantIds.addAll(Arrays.asList(tenantId.split(",")));
-            } else {
-                tenantIds.add(tenantId);
+        String tenantParam = null;
+
+        if (!CollectionUtils.isEmpty(queryParams)) {
+
+            // First check existing standard key
+            if (queryParams.containsKey(REQUEST_TENANT_ID_KEY) && !queryParams.get(REQUEST_TENANT_ID_KEY).isEmpty()) {
+                tenantParam = queryParams.getFirst(REQUEST_TENANT_ID_KEY);
             }
-        } else {
+            // Fallback for tenantIds
+            else if (queryParams.containsKey("tenantIds") && !queryParams.get("tenantIds").isEmpty()) {
+                tenantParam = queryParams.getFirst("tenantIds");
+            }
+
+        }
+
+        if (tenantParam == null || tenantParam.isBlank()) {
             throw new CustomException("TENANT_ID_MANDATORY", "TenantId is mandatory in URL for non json requests");
         }
 
+        if (tenantParam.contains(",")) {
+            tenantIds.addAll(Arrays.stream(tenantParam.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toList());
+        } else {
+            tenantIds.add(tenantParam.trim());
+        }
     }
 
 }
