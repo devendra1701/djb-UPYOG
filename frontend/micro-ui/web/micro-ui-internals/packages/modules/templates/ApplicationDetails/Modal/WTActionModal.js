@@ -48,8 +48,8 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
     },
     { enabled: !action?.isTerminateState }
   );
-  /* 
-   We have used this hook as it is already defined in FSM, 
+
+  /* We have used this hook as it is already defined in FSM, 
    and we have used it here to fetch vendor data when the state is "PENDING_FOR_VEHICLE_DRIVER_ASSIGN". */
 
   const { data: dsoData, isLoading: isLoading, isSuccess: isDsoSuccess, error: dsoError, refetch } = Digit.Hooks.fsm.useVendorSearch({
@@ -57,20 +57,28 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
     config: { enabled: action?.state === "PENDING_FOR_VEHICLE_DRIVER_ASSIGN" },
   });
 
-  /*  
-   This is used to filter vendors from `dsoData` that have an additional 
-   description field with the value "WT".The filtered vendors are then stored in the `vendorDescription` array with their names 
-   as code, name, and i18nKey */
+  /* This is used to filter vendors from `dsoData` that have an additional 
+   description field with the value "WT". The filtered vendors are then stored 
+   in the `vendorDescription` array with their name and mobile number. 
+  */
 
   let vendorDescription = [];
-  dsoData?.vendor?.map((item) => {
+  dsoData?.vendor?.forEach((item) => {
     if (item?.additionalDetails?.description === "WT" || item?.additionalDetails?.serviceType === "WT") {
-      vendorDescription.push({ code: item?.name, name: item?.name, i18nKey: item?.name, vendorId: item?.id });
+
+      // Combine the Name and Mobile Number for the dropdown display
+      const displayLabel = `${item?.name} (${item?.owner?.mobileNumber})`;
+
+      vendorDescription.push({
+        code: item?.name,
+        name: displayLabel,
+        i18nKey: displayLabel,
+        vendorId: item?.id
+      });
     }
   });
 
-  /* 
-     We have used this hook as it is already defined in FSM,
+  /* We have used this hook as it is already defined in FSM,
      and we have used it here to fetch vehicle data when the system state is "DELIVERY_PENDING". */
 
   const { data: vehicleData, isSuccess } = Digit.Hooks.fsm.useVehiclesSearch({
@@ -78,8 +86,7 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
     config: { enabled: action?.state === "DELIVERY_PENDING" },
   });
 
-  /*  
-     This is used to extract vehicle details from `vehicleData` and store them in the `vehicleDescription` array. 
+  /* This is used to extract vehicle details from `vehicleData` and store them in the `vehicleDescription` array. 
      Each entry contains the vehicle's registration number and tanker capacity.  */
 
   let vehicleDescription = [];
@@ -151,12 +158,10 @@ const ActionModal = ({ t, action, tenantId, state, id, closeModal, submitAction,
     if (action?.state === "DELIVERY_PENDING") {
       applicationData.vehicleId = selectVehicle?.vehicleId;
     };
-    /*  
-  * Constructs the request payload based on the business service type.  
+    /* * Constructs the request payload based on the business service type.  
   * If `businessService` is "watertanker", wraps `applicationData` in `waterTankerBookingDetail`.  
   * Otherwise, wraps it in `mobileToiletBookingDetail`.  
-  *  
-  * The payload is then passed to `submitAction` for processing.  
+  * * The payload is then passed to `submitAction` for processing.  
   */
     let requestPayload = businessService === "watertanker"
       ? { waterTankerBookingDetail: { ...applicationData, workflow } }

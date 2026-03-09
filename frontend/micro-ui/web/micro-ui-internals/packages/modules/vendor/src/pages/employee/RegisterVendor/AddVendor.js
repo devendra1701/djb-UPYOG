@@ -75,10 +75,7 @@ const AddVendor = ({ parentUrl, heading }) => {
     const phone = data?.phone;
     const dob = new Date(`${data.dob}`).getTime() || new Date(`1/1/1970`).getTime();
     const additionalDetails = data?.serviceType?.code;
-    const accountNo = data?.bankDetails?.accountNumber;
-    const ifscCode = data?.bankDetails?.ifscCode;
-    const bankName = data?.bankDetails?.bankName;
-    const bankBranchName = data?.bankDetails?.branchName;
+
     const formData = {
       vendor: {
         tenantId: tenantId,
@@ -122,12 +119,7 @@ const AddVendor = ({ parentUrl, heading }) => {
         additionalDetails: {
           serviceType: additionalDetails, //as fetch serviceType
         },
-        bankDetails: [{
-          bankName: bankName,
-          bankBranchName: bankBranchName,
-          ifscCode: ifscCode,
-          accountNumber: accountNo,
-        }],
+
         vehicle: [],
         drivers: [],
         source: "WhatsApp",

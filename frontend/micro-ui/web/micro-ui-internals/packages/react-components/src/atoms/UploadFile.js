@@ -37,14 +37,14 @@ const getCitizenStyles = (value) => {
       },
       tagContainerStyles: {
         width: "60%",
-        display: "flex", 
+        display: "flex",
         marginTop: "0px"
       },
       closeIconStyles: {
-        width : "20px"
+        width: "20px"
       },
       containerStyles: {
-        padding: "10px", 
+        padding: "10px",
         marginTop: "0px"
       },
 
@@ -58,12 +58,12 @@ const getCitizenStyles = (value) => {
         textOverflow: "ellipsis",
       },
       tagStyles: {
-        marginLeft:"-30px"
+        marginLeft: "-30px"
       },
       inputStyles: {},
       closeIconStyles: {
-        position:"absolute",
-        marginTop:"-12px"
+        position: "absolute",
+        marginTop: "-12px"
       },
       buttonStyles: {},
       tagContainerStyles: {},
@@ -71,21 +71,21 @@ const getCitizenStyles = (value) => {
   } else if (value == "OBPS") {
     citizenStyles = {
       containerStyles: {
-        display: "flex", 
-        justifyContent: "flex-start", 
-        alignItems: "center", 
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
         flexWrap: "wrap",
         margin: "0px",
         padding: "0px"
       },
       tagContainerStyles: {
-       margin: "0px",
-       padding: "0px",
-       width: "46%"
+        margin: "0px",
+        padding: "0px",
+        width: "46%"
       },
       tagStyles: {
-        height: "auto", 
-        padding: "5px", 
+        height: "auto",
+        padding: "5px",
         margin: 0,
         width: "100%",
         margin: "5px"
@@ -97,7 +97,7 @@ const getCitizenStyles = (value) => {
         overflow: "hidden",
         // minHeight: "35px",
         maxHeight: "34px"
-      },   
+      },
       inputStyles: {
         width: "43%",
         minHeight: "42px",
@@ -114,7 +114,7 @@ const getCitizenStyles = (value) => {
         padding: "0px"
       },
       closeIconStyles: {
-        width : "20px"
+        width: "20px"
       },
       uploadFile: {
         minHeight: "50px"
@@ -141,8 +141,8 @@ const UploadFile = (props) => {
   const user_type = Digit.SessionStorage.get("userType");
   let extraStyles = {};
   const handleChange = () => {
-    if (inpRef.current.files[0])
-    { setHasFile(true);
+    if (inpRef.current.files[0]) {
+      setHasFile(true);
       setprevSate(inpRef.current.files[0])
     }
     else setHasFile(false);
@@ -174,8 +174,8 @@ const UploadFile = (props) => {
   };
 
   const handleEmpty = () => {
-    if(inpRef.current.files.length <= 0 && prevSate !== null)
-    { inpRef.current.value = "";
+    if (inpRef.current.files.length <= 0 && prevSate !== null) {
+      inpRef.current.value = "";
       props.onDelete();
     }
   };
@@ -194,28 +194,32 @@ const UploadFile = (props) => {
   return (
     <Fragment>
       {showHint && <p className="cell-text">{t(props?.hintText)}</p>}
-      <div className={`upload-file ${user_type === "employee" ? "":"upload-file-max-width"} ${props.disabled ? " disabled" : ""}`} style={extraStyles?.uploadFile ? extraStyles?.uploadFile : {}}>
-        <div style= {extraStyles ? extraStyles?.containerStyles : null}>
+      <div className={`upload-file ${user_type === "employee" ? "" : "upload-file-max-width"} ${props.disabled ? " disabled" : ""}`} style={extraStyles?.uploadFile ? extraStyles?.uploadFile : {}}>
+        <div style={extraStyles ? extraStyles?.containerStyles : null}>
           <ButtonSelector
             theme="border"
             label={t("CS_COMMON_CHOOSE_FILE")}
             style={{ ...(extraStyles ? extraStyles?.buttonStyles : {}), ...(props.disabled ? { display: "none" } : {}) }}
             textStyles={props?.textStyles}
             type={props.buttonType}
+            onSubmit={(e) => {
+              if (e) e.preventDefault();
+              inpRef.current && inpRef.current.click();
+            }}
           />
-            {props?.uploadedFiles?.map((file, index) => {
-              const fileDetailsData = file[1]
-              return <div className="tag-container" style={extraStyles ? extraStyles?.tagContainerStyles : null}>
-                <RemoveableTag extraStyles={extraStyles} key={index} text={file[0]} onClick={(e) => props?.removeTargetedFile(fileDetailsData, e)} />
-              </div>
-            })}
+          {props?.uploadedFiles?.map((file, index) => {
+            const fileDetailsData = file[1]
+            return <div className="tag-container" style={extraStyles ? extraStyles?.tagContainerStyles : null}>
+              <RemoveableTag extraStyles={extraStyles} key={index} text={file[0]} onClick={(e) => props?.removeTargetedFile(fileDetailsData, e)} />
+            </div>
+          })}
           {!hasFile || props.error ? (
             <h2 className="file-upload-status">{props.message}</h2>
           ) : (
             <div className="tag-container" style={extraStyles ? extraStyles?.tagContainerStyles : null}>
               <div className="tag" style={extraStyles ? extraStyles?.tagStyles : null}>
                 <span className="text" style={extraStyles ? extraStyles?.textStyles : null}>
-                   {(typeof inpRef.current.files[0]?.name !== "undefined") && !(props?.file)  ? inpRef.current.files[0]?.name : props.file?.name} 
+                  {(typeof inpRef.current.files[0]?.name !== "undefined") && !(props?.file) ? inpRef.current.files[0]?.name : props.file?.name}
                 </span>
                 <span onClick={() => handleDelete()} style={extraStyles ? extraStyles?.closeIconStyles : null}>
                   <Close style={props.Multistyle} className="close" />
@@ -235,13 +239,13 @@ const UploadFile = (props) => {
           accept={props.accept}
           disabled={props.disabled}
           onChange={(e) => props.onUpload(e)}
-          onClick ={ event => {
+          onClick={event => {
             const { target = {} } = event || {};
             target.value = "";
           }}
         />
       </div>
-      {props.iserror && <p style={{color: "red"}}>{props.iserror}</p>}
+      {props.iserror && <p style={{ color: "red" }}>{props.iserror}</p>}
       {props?.showHintBelow && <p className="cell-text">{t(props?.hintText)}</p>}
     </Fragment>
   );

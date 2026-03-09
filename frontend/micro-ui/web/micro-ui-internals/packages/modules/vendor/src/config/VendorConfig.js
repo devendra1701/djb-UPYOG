@@ -194,19 +194,7 @@ const VendorConfig = (t, disabled = false) => {
         },
       ],
     },
-    {
-      head: "ES_FSM_REGISTRY_BANK_DETAILS",
-      body: [
-        {
-          route: "bank-details",
-          component: "BankDetailsComponent",
-          withoutLabel: true,
-          key: "bankDetails",
-          isMandatory: false,
-          type: "component",
-        },
-      ],
-    },
+
     {
       head: "",
       body: [
