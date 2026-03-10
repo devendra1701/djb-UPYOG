@@ -66,14 +66,10 @@ public class EnrichmentService {
 	public void enrichCreate(VendorRequest vendorRequest) {
 		List<String> referenceList = idgenUtil.getIdList(
 				vendorRequest.getRequestInfo(),
-				"dl",
-				// vendorRequest.getVendor().getTenantId(),
+				vendorRequest.getVendor().getTenantId(),
 				"djb.vendor.id",
-				"DL-DJB-[SEQ_EGOV_COMMON]",
+				null,
 				1);
-		log.info("Requesting Info from IDGEN with tenantId: {}", vendorRequest.getRequestInfo());
-		log.info("Requesting ID from IDGEN with tenantId: {}", vendorRequest.getVendor().getTenantId());
-
 		Vendor vendor = vendorRequest.getVendor();
 		RequestInfo requestInfo = vendorRequest.getRequestInfo();
 		vendor.setStatus(Vendor.StatusEnum.ACTIVE);
