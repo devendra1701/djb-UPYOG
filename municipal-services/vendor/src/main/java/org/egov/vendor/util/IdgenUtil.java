@@ -36,35 +36,6 @@ public class IdgenUtil {
     @Autowired
     private ServiceRequestRepository restRepo;
 
-    // public List<String> getIdList(RequestInfo requestInfo, String tenantId,
-    // String idName, String idformat,
-    // Integer count) {
-    // List<IdRequest> reqList = new ArrayList<>();
-    // for (int i = 0; i < count; i++) {
-    // reqList.add(IdRequest.builder().idName(idName).format(idformat).tenantId(tenantId).build());
-    // }
-
-    // IdGenerationRequest request =
-    // IdGenerationRequest.builder().idRequests(reqList).requestInfo(requestInfo)
-    // .build();
-
-    // StringBuilder uri = new StringBuilder(idGenHost).append(idGenPath);
-    // IdGenerationResponse response = mapper.convertValue(restRepo.fetchResult(uri,
-    // request),
-    // IdGenerationResponse.class);
-
-    // List<IdResponse> idResponses = response.getIdResponses();
-
-    // if (CollectionUtils.isEmpty(idResponses)) {
-    // log.info("No IDs returned from IDGEN. TenantId: {}, idName: {}, format: {}",
-    // tenantId, idName, idformat);
-    // throw new CustomException("IDGEN ERROR", "No ids returned from idgen
-    // Service");
-    // }
-    // return
-    // idResponses.stream().map(IdResponse::getId).collect(Collectors.toList());
-    // }
-
     public List<String> getIdList(RequestInfo requestInfo, String tenantId,
             String idName, String idformat,
             Integer count) {
