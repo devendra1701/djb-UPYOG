@@ -158,20 +158,49 @@ const EmployeeHome = ({ modules }) => {
   const name = userInfo?.name;
   const dashboardCemp = Digit.UserService.hasAccess(["DASHBOARD_EMPLOYEE"]) ? true : false;
 
-    const scrollContainerRef = React.useRef(null);
+  const scrollContainerRef = React.useRef(null);
   const [showLeftArrow, setShowLeftArrow] = React.useState(false);
   const [showRightArrow, setShowRightArrow] = React.useState(true);
+
+  // NEW: State for pagination
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(1);
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      
       setShowLeftArrow(scrollLeft > 0);
       setShowRightArrow(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 1);
+
+      if (clientWidth > 0) {
+        // Calculate total pages based on viewport width
+        const total = Math.ceil(scrollWidth / clientWidth) || 1;
+        setTotalPages(total);
+
+        // Calculate the maximum possible scroll distance
+        const maxScrollLeft = scrollWidth - clientWidth;
+
+        if (maxScrollLeft > 0) {
+          // Calculate scroll progress as a percentage (0 to 1)
+          const scrollProgress = scrollLeft / maxScrollLeft;
+          
+          // Map the percentage to the current page number
+          const current = Math.round(scrollProgress * (total - 1)) + 1;
+          
+          // Ensure it stays within valid bounds (1 to totalPages)
+          setCurrentPage(Math.min(Math.max(current, 1), total));
+        } else {
+          // If there's no overflow, we are always on page 1
+          setCurrentPage(1);
+        }
+      }
     }
   };
 
   React.useEffect(() => {
-    handleScroll();
+    // Slight delay to ensure child components (cards) have rendered their widths in the DOM
+    setTimeout(() => handleScroll(), 100);
     window.addEventListener("resize", handleScroll);
     return () => window.removeEventListener("resize", handleScroll);
   }, [modules]);
@@ -227,15 +256,12 @@ const EmployeeHome = ({ modules }) => {
 
       <div className="home-header">
         <div className="header-top-section">
-          {/* Left: Dynamic Greeting & Date */}
           <div className="header-greeting-area">
             <h1 className="greeting-title">
               {t(greeting.text)}, {name} <span className="greeting-emoji">{greeting.emoji}</span>
             </h1>
             <p className="greeting-date">{getFormattedDate()}</p>
           </div>
-
-
         </div>
       </div>
 
@@ -250,7 +276,7 @@ const EmployeeHome = ({ modules }) => {
           <div className="module-carousel-section">
 
             <div className="module-carousel-header">
-              <div className="module-carousel-actions">
+              <div className="module-carousel-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <button
                   className="carousel-arrow left"
                   onClick={() => scroll("left")}
@@ -259,6 +285,12 @@ const EmployeeHome = ({ modules }) => {
                 >
                   <LeftArrowIcon />
                 </button>
+
+                {/* NEW: Pagination Indicator */}
+                <span className="carousel-pagination-text" style={{ fontSize: "14px", fontWeight: "500", color: "#505A5F" }}>
+                  {currentPage} / {totalPages}
+                </span>
+
                 <button
                   className="carousel-arrow right"
                   onClick={() => scroll("right")}
@@ -275,7 +307,6 @@ const EmployeeHome = ({ modules }) => {
                 {modules.map(({ code }, index) => {
                   const Card = Digit.ComponentRegistryService.getComponent(`${code}Card`);
 
-                  // Block if component is not in registry
                   if (!Card) return null;
 
                   return <Card key={index} />;
