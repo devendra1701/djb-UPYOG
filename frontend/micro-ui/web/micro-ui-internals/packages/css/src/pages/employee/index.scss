@@ -19,8 +19,11 @@
     /* @apply flex flex-col; */
   }
 
-  @media (max-width: 425px) {
-    padding-top: 10px;
+  @media (min-width: 325px) and (max-width: 768px) {
+    .ground-container {
+      padding-top: 11px;
+      padding-inline: 10px;
+    }
   }
 
   .card-home {
@@ -1121,5 +1124,14 @@
   .vendor-select-address-inline {
     flex-direction: column !important;
     gap: 0px;
+  }
+
+  @media (min-width: 325px) and (max-width: 768px) {
+    .home-header {
+
+      .header-top-section {
+        margin-inline: 10px;
+      }
+    }
   }
 }
