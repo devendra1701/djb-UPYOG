@@ -152,6 +152,28 @@ const RightArrowIcon = () => (
   </svg>
 );
 
+const PresentationIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+    <ellipse cx="55" cy="50" rx="40" ry="38" fill="#ffffff" opacity="0.08" />
+
+    <rect x="52" y="24" width="32" height="32" rx="5" fill="none" stroke="#ffffff" stroke-width="5" opacity="0.3" />
+
+    <g fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+      <circle cx="36" cy="24" r="6" stroke="none" />
+
+      <rect x="29" y="34" width="14" height="26" rx="2" stroke="none" />
+
+      <line x1="31" y1="38" x2="25" y2="52" stroke-width="4.5" />
+
+      <line x1="41" y1="38" x2="62" y2="38" stroke-width="4.5" />
+
+      <line x1="32" y1="59" x2="32" y2="78" stroke-width="4.5" />
+
+      <line x1="40" y1="59" x2="40" y2="78" stroke-width="4.5" />
+    </g>
+  </svg>
+);
+
 const EmployeeHome = ({ modules }) => {
   const { t } = useTranslation();
   const userInfo = JSON.parse(localStorage.getItem("Employee.user-info"));
@@ -169,7 +191,7 @@ const EmployeeHome = ({ modules }) => {
   const handleScroll = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      
+
       setShowLeftArrow(scrollLeft > 0);
       setShowRightArrow(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 1);
 
@@ -184,10 +206,10 @@ const EmployeeHome = ({ modules }) => {
         if (maxScrollLeft > 0) {
           // Calculate scroll progress as a percentage (0 to 1)
           const scrollProgress = scrollLeft / maxScrollLeft;
-          
+
           // Map the percentage to the current page number
           const current = Math.round(scrollProgress * (total - 1)) + 1;
-          
+
           // Ensure it stays within valid bounds (1 to totalPages)
           setCurrentPage(Math.min(Math.max(current, 1), total));
         } else {
@@ -261,6 +283,9 @@ const EmployeeHome = ({ modules }) => {
               {t(greeting.text)}, {name} <span className="greeting-emoji">{greeting.emoji}</span>
             </h1>
             <p className="greeting-date">{getFormattedDate()}</p>
+          </div>
+          <div className="header-icon-area">
+            <PresentationIcon />
           </div>
         </div>
       </div>
