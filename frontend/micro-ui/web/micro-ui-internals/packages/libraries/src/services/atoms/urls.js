@@ -308,6 +308,11 @@ const Urls = {
   },
   access_control: "/access/v1/actions/mdms/_get",
   billgenie: "/egov-searcher",
+  ekyc: {
+    create: "/ekyc-services/ekyc/v1/_create",
+    get_connection: "/ekyc-service/user/get/_connection",
+    validate_user: "/ekyc-service/user/_validate",
+  },
   audit: "/inbox/v1/elastic/_search",
 };
 

@@ -48,6 +48,9 @@ module.exports = function (app) {
     "/tl-services",
     "/tl-calculator",
     "/edcr",
+    "/ekyc-service/user/get/_connection",
+    "/ekyc-service/user/_validate",
+    "/ekyc-services",
     "/bpa-services",
     "/noc-services",
     "/egov-user-event",
@@ -109,8 +112,8 @@ module.exports = function (app) {
     "/request-service/mobile-toilet/v1/_update",
     "/request-service/mobile-toilet/v1/_search",
     "/vendor-management/api/v1/vendorPlusAdditional/_search",
-    "/user/_updateAddress"
-    
+    "/user/_updateAddress",
+    "/ekyc-service"
   ].forEach((location) => app.use(location, createProxy));
   ["/pb-egov-assets"].forEach((location) => app.use(location, assetsProxy));
 };

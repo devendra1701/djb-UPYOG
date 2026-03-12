@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { Switch, useLocation } from "react-router-dom";
 import Inbox from "./Inbox";
 import Create from "./Create";
-import KDetails from "./KDetails";
 import AadhaarVerification from "./AadhaarVerification";
 import AddressDetails from "./AddressDetails";
+import PropertyInfo from "./PropertyInfo";
 
 const EmployeeApp = ({ path }) => {
     const { t } = useTranslation();
@@ -21,6 +21,7 @@ const EmployeeApp = ({ path }) => {
         if (pathname.includes("/k-details")) return "EKYC_K_DETAILS";
         if (pathname.includes("/aadhaar-verification")) return "EKYC_AADHAAR_VERIFICATION";
         if (pathname.includes("/address-details")) return "EKYC_ADDRESS_DETAILS";
+        if (pathname.includes("/property-info")) return "EKYC_PROPERTY_INFO";
         return "ES_COMMON_INBOX";
     };
 
@@ -62,11 +63,6 @@ const EmployeeApp = ({ path }) => {
                     />
 
                     <PrivateRoute
-                        path={`${path}/k-details`}
-                        component={() => <KDetails />}
-                    />
-
-                    <PrivateRoute
                         path={`${path}/aadhaar-verification`}
                         component={() => <AadhaarVerification />}
                     />
@@ -74,6 +70,11 @@ const EmployeeApp = ({ path }) => {
                     <PrivateRoute
                         path={`${path}/address-details`}
                         component={() => <AddressDetails />}
+                    />
+
+                    <PrivateRoute
+                        path={`${path}/property-info`}
+                        component={() => <PropertyInfo />}
                     />
 
                     <PrivateRoute

@@ -346,6 +346,7 @@ import useSelectedMDMS from "./useSelectedMDMS";
 import useVendorAdditionaldetailsAPI from "./vendor/useVendorAdditionaldetailsAPI";
 import useCreateDemand from "./sv/useCreateDemand";
 import useEmpvendorCommonSearch from "./vendor/useEmpvendorCommonSearch";
+import { useEkycCount, useEkycSearch, useGetConnection, useValidateUser } from "./ekyc/useEkyc";
 
 const wt={
   useTankerCreateAPI,
@@ -414,7 +415,7 @@ const fsm = {
   useDriverDetails,
   useVehicleTripCreate,
   useVendorSearch,
-  useAdvanceBalanceCalulation,
+  useAdvanceBalanceCalulation
 };
 const ptr = {
   usePetMDMS,
@@ -481,6 +482,13 @@ const mcollect = {
   useMCollectCategoryTypes,
   useMCollectTaxHeads,
   useMcollectFormConfig,
+};
+
+const ekyc = {
+  useEkycSearch,
+  useEkycCount,
+  useGetConnection,
+  useValidateUser,
 };
 
 const hrms = {
@@ -777,6 +785,7 @@ const Hooks = {
   useCustomBackNavigation,
   wt,
   vendor,
+  ekyc,
   useRouteSubscription
 };
 
