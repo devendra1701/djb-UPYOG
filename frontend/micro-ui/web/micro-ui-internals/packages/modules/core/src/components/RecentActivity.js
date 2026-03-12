@@ -34,6 +34,7 @@ const Icons = {
 
 const RecentActivity = () => {
     const { t } = useTranslation();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const activities = [
         {
@@ -64,47 +65,92 @@ const RecentActivity = () => {
     ];
 
     return (
-        <div className="recent-activity-wrapper static-card">
-            <div className="ra-header">
-                <div>
-                    <h3>{t("Recent Activity")}</h3>
-                    <p className="ra-subtitle">{t("Latest updates and actions")}</p>
+        <React.Fragment>
+            <div className="recent-activity-wrapper static-card">
+                <div className="ra-header">
+                    <div>
+                        <h3>{t("Recent Activity")}</h3>
+                        <p className="ra-subtitle">{t("Latest updates and actions")}</p>
+                    </div>
                 </div>
-                <button className="ra-view-all">
-                    {t("View All")} <Icons.ArrowRight size={14} />
-                </button>
+
+                <div style={{ paddingTop: "10px" }} className="ra-timeline">
+                    {activities.slice(0, 3).map((activity, index) => {
+                        const IconComponent = activity.Icon;
+                        return (
+                            <div key={activity.id} className="ra-item">
+                                <div className="ra-indicator">
+                                    <div
+                                        className="ra-icon-wrapper"
+                                        style={{ backgroundColor: activity.bgHex, color: activity.iconHex }}
+                                    >
+                                        <IconComponent size={18} />
+                                    </div>
+                                    {/* Line perfectly centered under the icon */}
+                                    {index !== 2 && <div className="ra-line"></div>}
+                                </div>
+
+                                <div className="ra-details">
+                                    <p className="ra-text">
+                                        <span className="ra-user">{activity.user}</span> {activity.action}
+                                    </p>
+                                    <div className="ra-meta" style={{ marginTop: "4px" }}>
+                                        <span className="ra-module">{activity.moduleId}</span>
+                                        <span className="ra-time">{activity.time}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="ra-footer">
+                    <button className="ra-view-all" onClick={() => setIsModalOpen(true)}>
+                        {t("View All")} <Icons.ArrowRight size={14} />
+                    </button>
+                </div>
             </div>
 
-            <div className="ra-timeline">
-                {activities.map((activity, index) => {
-                    const IconComponent = activity.Icon;
-                    return (
-                        <div key={activity.id} className="ra-item">
-                            <div className="ra-indicator">
-                                <div
-                                    className="ra-icon-wrapper"
-                                    style={{ backgroundColor: activity.bgHex, color: activity.iconHex }}
-                                >
-                                    <IconComponent size={18} />
-                                </div>
-                                {/* Line perfectly centered under the icon */}
-                                {index !== activities.length - 1 && <div className="ra-line"></div>}
-                            </div>
-
-                            <div className="ra-details">
-                                <p className="ra-text">
-                                    <span className="ra-user">{activity.user}</span> {activity.action}
-                                </p>
-                                <div className="ra-meta" style={{ marginTop: "4px" }}>
-                                    <span className="ra-module">{activity.moduleId}</span>
-                                    <span className="ra-time">{activity.time}</span>
-                                </div>
-                            </div>
+            {isModalOpen && (
+                <div className="ra-modal-overlay" onClick={() => setIsModalOpen(false)}>
+                    <div className="ra-modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="ra-modal-header">
+                            <h3>{t("All Recent Activity")}</h3>
+                            <button className="ra-modal-close" onClick={() => setIsModalOpen(false)}>
+                                <Icons.XCircle size={24} />
+                            </button>
                         </div>
-                    );
-                })}
-            </div>
-        </div>
+                        <div className="ra-timeline ra-timeline-modal">
+                            {activities.map((activity, index) => {
+                                const IconComponent = activity.Icon;
+                                return (
+                                    <div key={activity.id} className="ra-item">
+                                        <div className="ra-indicator">
+                                            <div
+                                                className="ra-icon-wrapper"
+                                                style={{ backgroundColor: activity.bgHex, color: activity.iconHex }}
+                                            >
+                                                <IconComponent size={18} />
+                                            </div>
+                                            {index !== activities.length - 1 && <div className="ra-line"></div>}
+                                        </div>
+                                        <div className="ra-details">
+                                            <p className="ra-text">
+                                                <span className="ra-user">{activity.user}</span> {activity.action}
+                                            </p>
+                                            <div className="ra-meta" style={{ marginTop: "4px" }}>
+                                                <span className="ra-module">{activity.moduleId}</span>
+                                                <span className="ra-time">{activity.time}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+            )}
+        </React.Fragment>
     );
 };
 

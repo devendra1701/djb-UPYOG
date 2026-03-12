@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // Pure SVG Icons for News & Events
@@ -17,11 +17,16 @@ const Icons = {
     ),
     ArrowRight: ({ size = 14 }) => (
         <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+    ),
+    XCircle: ({ size = 18 }) => (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6" /><path d="m9 9 6 6" /></svg>
     )
+
 };
 
 const NewsAndEvents = () => {
     const { t } = useTranslation();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const newsItems = [
         {
@@ -51,49 +56,96 @@ const NewsAndEvents = () => {
     ];
 
     return (
-        <div className="recent-activity-wrapper static-card">
-            <div className="ra-header">
-                <div>
-                    <h3>{t("News & Events")}</h3>
-                    <p className="ra-subtitle">{t("Latest announcements and updates")}</p>
+        <React.Fragment>
+            <div className="recent-activity-wrapper static-card">
+                <div className="ra-header">
+                    <div>
+                        <h3>{t("News & Events")}</h3>
+                        <p className="ra-subtitle">{t("Latest announcements and updates")}</p>
+                    </div>
                 </div>
-                <button className="ra-view-all">
-                    {t("All News")} <Icons.ArrowRight size={14} />
-                </button>
+
+                <div style={{paddingTop:"10px"}} className="ra-timeline">
+                    {newsItems.slice(0, 3).map((item, index) => {
+                        const IconComponent = item.Icon;
+                        return (
+                            <div key={item.id} className="ra-item">
+                                <div className="ra-indicator">
+                                    <div
+                                        className="ra-icon-wrapper"
+                                        style={{ backgroundColor: item.bgHex, color: item.iconHex }}
+                                    >
+                                        <IconComponent size={18} />
+                                    </div>
+                                    {/* Center line */}
+                                    {index !== 2 && <div className="ra-line"></div>}
+                                </div>
+
+                                <div className="ra-details">
+                                    <p className="ra-text" style={{ fontWeight: 600 }}>
+                                        {item.title}
+                                    </p>
+                                    <p className="ra-text" style={{ color: "#64748b", fontSize: "13px", marginTop: "4px" }}>
+                                        {item.description}
+                                    </p>
+                                    <div className="ra-meta" style={{ marginTop: "4px" }}>
+                                        <span className="ra-time">{item.date}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="ra-footer">
+                    <button className="ra-view-all" onClick={() => setIsModalOpen(true)}>
+                        {t("All News")} <Icons.ArrowRight size={14} />
+                    </button>
+                </div>
             </div>
 
-            <div className="ra-timeline">
-                {newsItems.map((item, index) => {
-                    const IconComponent = item.Icon;
-                    return (
-                        <div key={item.id} className="ra-item">
-                            <div className="ra-indicator">
-                                <div
-                                    className="ra-icon-wrapper"
-                                    style={{ backgroundColor: item.bgHex, color: item.iconHex }}
-                                >
-                                    <IconComponent size={18} />
-                                </div>
-                                {/* Center line */}
-                                {index !== newsItems.length - 1 && <div className="ra-line"></div>}
-                            </div>
-
-                            <div className="ra-details">
-                                <p className="ra-text" style={{ fontWeight: 600 }}>
-                                    {item.title}
-                                </p>
-                                <p className="ra-text" style={{ color: "#64748b", fontSize: "13px", marginTop: "4px" }}>
-                                    {item.description}
-                                </p>
-                                <div className="ra-meta" style={{ marginTop: "4px" }}>
-                                    <span className="ra-time">{item.date}</span>
-                                </div>
-                            </div>
+            {isModalOpen && (
+                <div className="ra-modal-overlay" onClick={() => setIsModalOpen(false)}>
+                    <div className="ra-modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="ra-modal-header">
+                            <h3>{t("All News & Events")}</h3>
+                            <button className="ra-modal-close" onClick={() => setIsModalOpen(false)}>
+                                <Icons.XCircle size={24} />
+                            </button>
                         </div>
-                    );
-                })}
-            </div>
-        </div>
+                        <div className="ra-timeline ra-timeline-modal">
+                            {newsItems.map((item, index) => {
+                                const IconComponent = item.Icon;
+                                return (
+                                    <div key={item.id} className="ra-item">
+                                        <div className="ra-indicator">
+                                            <div
+                                                className="ra-icon-wrapper"
+                                                style={{ backgroundColor: item.bgHex, color: item.iconHex }}
+                                            >
+                                                <IconComponent size={18} />
+                                            </div>
+                                            {index !== newsItems.length - 1 && <div className="ra-line"></div>}
+                                        </div>
+                                        <div className="ra-details">
+                                            <p className="ra-text" style={{ fontWeight: 600 }}>
+                                                {item.title}
+                                            </p>
+                                            <p className="ra-text" style={{ color: "#64748b", fontSize: "13px", marginTop: "4px" }}>
+                                                {item.description}
+                                            </p>
+                                            <div className="ra-meta" style={{ marginTop: "4px" }}>
+                                                <span className="ra-time">{item.date}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+            )}
+        </React.Fragment>
     );
 };
 
