@@ -170,7 +170,7 @@ const DesktopInbox = ({ tableConfig, filterComponent, ...props }) => {
           </div>
         </div>
       )}
-      <div className="form-search-wrapper">
+      <div className="form-search-wrapper employee-form-content">
         <SearchApplication
           defaultSearchParams={props.defaultSearchParams}
           onSearch={props.onSearch}

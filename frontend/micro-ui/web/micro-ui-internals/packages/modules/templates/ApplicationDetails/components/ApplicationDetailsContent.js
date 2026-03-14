@@ -14,7 +14,7 @@ import {
   ViewsIcon,
   // DeleteIcon,
 } from "@djb25/digit-ui-react-components";
-import React, { Fragment,  useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import BPADocuments from "./BPADocuments";
@@ -62,7 +62,6 @@ function ApplicationDetailsContent({
   const searchParams = new URLSearchParams(location.search);
   let { id: applicationNo } = useParams(); // Extracts PG-1013-2025-I-001019
   const ownersSequences = applicationDetails?.applicationData?.owners;
-  console.log("ownersSequences:- ", ownersSequences);
   function OpenImage(imageSource, index, thumbnailsToShow) {
     window.open(thumbnailsToShow?.fullImage?.[0], "_blank");
   }
@@ -279,7 +278,7 @@ function ApplicationDetailsContent({
     setSelectedData(data);
     setShowPopup(true);
   };
-
+  console.log("===========================");
   return (
     <Card style={{ position: "relative" }} className={"employeeCard-override"}>
       {/* For UM-4418 changes */}

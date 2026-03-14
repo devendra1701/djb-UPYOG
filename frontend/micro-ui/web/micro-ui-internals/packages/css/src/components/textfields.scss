@@ -21,6 +21,7 @@
   background: theme(colors.grey.mid);
   border-right: 0;
   padding-right: 5px;
+  border-radius: 6px 0 0 6px;
 }
 .employee-card-input-error {
   @apply mb-lg pl-sm block w-full h-10 outline-none border-2 border-error border-solid bg-white leading-10 text-form-field text-text-primary;

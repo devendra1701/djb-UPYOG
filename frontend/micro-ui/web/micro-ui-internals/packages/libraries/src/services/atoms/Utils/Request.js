@@ -18,7 +18,10 @@ Axios.interceptors.request.use(
       } catch (error) {
         console.error(error);
 
-        kc.logout();
+        kc.logout({
+          // redirectUri: window.location.origin + "/digit-ui",
+          idTokenHint: kc.idToken,
+        });
         return Promise.reject(error);
       }
     }
@@ -41,10 +44,13 @@ Axios.interceptors.response.use(
           localStorage.clear();
           sessionStorage.clear();
           if (kc) {
-            kc.logout();
+            kc.logout({
+              // redirectUri: window.location.origin + "/digit-ui/employee/user/language-selection",
+              idTokenHint: kc.idToken,
+            });
           } else {
             window.location.href =
-              (isEmployee ? "/digit-ui/employee/user/language-selection" : "/digit-ui/citizen/login") +
+              (isEmployee ? "/digit-ui/employee/user/login" : "/digit-ui/citizen/login") +
               `?from=${encodeURIComponent(window.location.pathname + window.location.search)}`;
           }
         } else if (

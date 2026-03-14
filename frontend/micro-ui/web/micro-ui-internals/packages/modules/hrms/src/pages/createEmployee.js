@@ -302,7 +302,7 @@ const CreateEmployee = () => {
 
     <div className={`employee-form ${isMobile ? "mobile-view" : ""}`}>
       <Stepper customSteps={config} currentStep={activeStep} onStepClick={handleStepClick} t={t} />
-      <div style={{ flex: "1", overflowY: "auto", height: "100%" }}>
+      <div className="employee-form-content">
         <FormComposer
           key={activeStep}
           defaultValues={sessionFormData}

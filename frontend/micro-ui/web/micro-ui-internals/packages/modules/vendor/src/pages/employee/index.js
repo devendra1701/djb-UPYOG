@@ -1,7 +1,7 @@
-import { PrivateRoute, BreadCrumb, AppContainer, BackButton, CloseSvg, ModuleHeader, ArrowLeft, HomeIcon } from "@djb25/digit-ui-react-components";
+import { PrivateRoute, AppContainer, ModuleHeader, ArrowLeft, HomeIcon } from "@djb25/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Switch, useLocation } from "react-router-dom";
+import { Switch, useLocation } from "react-router-dom";
 import SearchApp from "./SearchApp";
 
 const EmployeeApp = ({ path, url, userType }) => {
@@ -9,17 +9,17 @@ const EmployeeApp = ({ path, url, userType }) => {
   const location = useLocation();
   const mobileView = innerWidth <= 640;
   sessionStorage.removeItem("revalidateddone");
-  const isMobile = window.Digit.Utils.browser.isMobile();
+  // const isMobile = window.Digit.Utils.browser.isMobile();
 
-  const inboxInitialState = {
-    // searchParams: {
-    //   uuid: { code: "ASSIGNED_TO_ALL", name: "ES_INBOX_ASSIGNED_TO_ALL" },
-    //   services: ["asset-create"],
-    //   applicationStatus: [],
-    //   locality: [],
+  // const inboxInitialState = {
+  //   searchParams: {
+  //     uuid: { code: "ASSIGNED_TO_ALL", name: "ES_INBOX_ASSIGNED_TO_ALL" },
+  //     services: ["asset-create"],
+  //     applicationStatus: [],
+  //     locality: [],
 
-    // },
-  };
+  //   },
+  // };
 
 
 

@@ -47,12 +47,18 @@ const ErrorComponent = (props) => {
 
     // Try refreshing expired token
     if (kc.authenticated && kc.token && kc.isTokenExpired()) {
-      kc.updateToken(30).catch(() => kc.logout());
+      kc.updateToken(30).catch(() => kc.logout({
+        // redirectUri: window.location.origin + "/digit-ui",
+        idTokenHint: kc.idToken
+      }));
     }
 
     // If tokens missing → logout
     if (kc.authenticated && (!kc.token || !kc.refreshToken)) {
-      kc.logout();
+      kc.logout({
+        // redirectUri: window.location.origin + "/digit-ui",
+        idTokenHint: kc.idToken
+      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

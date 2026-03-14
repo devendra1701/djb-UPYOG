@@ -86,8 +86,8 @@ const VENDORCreate = ({ parentRoute }) => {
     goNext(skipStep, index, isAddMultiple, key);
   }
 
-  const handleSkip = () => {};
-  const handleMultiple = () => {};
+  const handleSkip = () => { };
+  const handleMultiple = () => { };
 
   const onSuccess = () => {
     clearParams();
@@ -108,9 +108,6 @@ const VENDORCreate = ({ parentRoute }) => {
   });
 
   config.indexRoute = "info";
-
-  console.log(commonFields,"commanFields")
-  console.log(config,"config")
 
   const CheckPage = Digit?.ComponentRegistryService?.getComponent("VENDORCheckPage");
   const NewResponse = Digit?.ComponentRegistryService?.getComponent("NewResponse");

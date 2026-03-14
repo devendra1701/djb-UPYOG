@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { TypeSelectCard } from "@djb25/digit-ui-react-components";
-import { FormStep, RadioOrSelect, RadioButtons, CitizenInfoLabel, InfoBannerIcon } from "@djb25/digit-ui-react-components";
+import React from "react";
+import { InfoBannerIcon } from "@djb25/digit-ui-react-components";
 
 const EyeSvgINdex = ({ style }) => {
   return <span>
@@ -14,9 +13,10 @@ const WSInfoLabel = ({ t, config, onSelect, userType, formData }) => {
   userType = userType || Digit.SessionStorage.get("userType");
   const isMobile = window.Digit.Utils.browser.isMobile();
   let isPrivacyEnabled = sessionStorage.getItem("isPrivacyEnabled")
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", isPrivacyEnabled)
   return (
     <React.Fragment>
-    { isPrivacyEnabled === "true" && <div style={userType === "citizen" ? {maxWidth:"970px"} : (isMobile ? {} : { width: "80%"})}>
+      {isPrivacyEnabled === "true" && <div style={userType === "citizen" ? { maxWidth: "970px" } : (isMobile ? {} : { width: "80%" })}>
         <div className="info-banner-wrap" style={window.location.href.includes("/connection-details") ? { color: "#3498DB", margin: "0px" } : { color: "#3498DB" }}>
           <div>
             <InfoBannerIcon />

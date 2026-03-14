@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -11,7 +11,6 @@ import {
   ActionBar,
   Menu,
   Toast,
-  Header,
   EditIcon,
   DeleteIcon,
   Modal,
@@ -263,7 +262,7 @@ const EditVendorDetails = (props) => {
     }
     if (selectedAction === "ADD_VEHICLE") {
       return (
-        <>
+        <React.Fragment>
           <CardText>{t(`ES_FSM_REGISTRY_SELECT_VEHICLE`)}</CardText>
           <Dropdown
             t={t}
@@ -273,15 +272,15 @@ const EditVendorDetails = (props) => {
             select={setSelectedOption}
             optionKey={"registrationNumber"}
           />
-        </>
+        </React.Fragment>
       );
     }
     if (selectedAction === "ADD_DRIVER") {
       return (
-        <>
+        <React.Fragment>
           <CardText>{t(`ES_FSM_REGISTRY_SELECT_DRIVER`)}</CardText>
           <Dropdown t={t} option={drivers} value={selectedOption} selected={selectedOption} select={setSelectedOption} optionKey={"name"} />
-        </>
+        </React.Fragment>
       );
     }
   };
@@ -311,11 +310,11 @@ const EditVendorDetails = (props) => {
   ];
 
   return (
-    <React.Fragment>
+    <div className="employee-form-content">
       {!isLoading ? (
         <React.Fragment>
-          <Header style={{ marginBottom: "16px" }}>{t("ES_FSM_REGISTRY_VENDOR_DETAILS")}</Header>
-          <div style={!isMobile ? { marginLeft: "-15px" } : {}}>
+          {/* <Header style={{ marginBottom: "16px" }}>{t("ES_FSM_REGISTRY_VENDOR_DETAILS")}</Header> */}
+          <div>
             <Card style={{ position: "relative" }}>
               {dsoData?.[0]?.employeeResponse?.map((detail, index) => (
                 <React.Fragment key={index}>
@@ -485,7 +484,7 @@ const EditVendorDetails = (props) => {
       ) : (
         <Loader />
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

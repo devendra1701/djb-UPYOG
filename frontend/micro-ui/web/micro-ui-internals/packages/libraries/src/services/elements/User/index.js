@@ -50,8 +50,9 @@ export const UserService = {
 
       // 3️⃣ Logout from Keycloak (THIS IS IMPORTANT)
       if (kc) {
-        await kc.logout({
-          redirectUri: window.location.origin + "/digit-ui/employee/user/language-selection",
+        kc.logout({
+          // redirectUri: window.location.origin + "/digit-ui",
+          idTokenHint: kc.idToken
         });
       }
 

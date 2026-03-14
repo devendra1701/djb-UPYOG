@@ -234,7 +234,7 @@ const AddVendor = ({ parentUrl, heading }) => {
   const { t } = useTranslation();
   // const history = useHistory();
   // const queryClient = useQueryClient();
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(1);
   const [showToast, setShowToast] = useState(null);
   const [canSubmit, setCanSubmit] = useState(false);
   const step1DataRef = useRef({}); // 👈 store step 1 data here
@@ -268,10 +268,7 @@ const AddVendor = ({ parentUrl, heading }) => {
   const addressStepConfig = Config.filter((config) => config.head === "ES_FSM_REGISTRY_NEW_ADDRESS_DETAILS");
 
   // const steps = [t("ES_VRNDOR_NEW_VENDOR_DETAILS"), t("ES_FSM_REGISTRY_NEW_ADDRESS_DETAILS")];
-  const steps = [
-    { label: "ES_VRNDOR_NEW_VENDOR_DETAILS" },
-    { label: "ES_FSM_REGISTRY_NEW_ADDRESS_DETAILS" },
-  ];
+  const steps = [{ label: "ES_VRNDOR_NEW_VENDOR_DETAILS" }, { label: "ES_FSM_REGISTRY_NEW_ADDRESS_DETAILS" }];
 
   const onFormValueChange = (setValue, formData) => {
     if (formData?.vendorName && formData?.phone && formData?.selectGender?.code) {
@@ -381,12 +378,7 @@ const AddVendor = ({ parentUrl, heading }) => {
     <React.Fragment>
       {/* Timeline */}
       {/* <Timeline steps={steps} currentStep={currentStep} /> */}
-      <Stepper
-        steps={steps}
-        currentStep={currentStep - 1}
-        onStepClick={(step) => setCurrentStep(step + 1)}
-        t={t}
-      />
+      <Stepper steps={steps} currentStep={currentStep - 1} onStepClick={(step) => setCurrentStep(step + 1)} t={t} />
       <div style={{ flex: "1", overflowY: "auto" }}>
         {currentStep === 1 && ( // 👈 conditionally render instead of key prop
           <FormComposer

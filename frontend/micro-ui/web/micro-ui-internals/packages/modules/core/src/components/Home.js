@@ -21,13 +21,13 @@ import RecentActivity from "./RecentActivity";
 import NewsAndEvents from "./NewsAndEvents";
 
 /* Feature :: Citizen All service screen cards
-*/
+ */
 export const processLinkData = (newData, code, t) => {
   const obj = newData?.[`${code}`];
   if (obj) {
     obj.map((link) => {
-      (link.link = link["navigationURL"]); 
-      (link.i18nKey = t(link["name"]));
+      link.link = link["navigationURL"];
+      link.i18nKey = t(link["name"]);
       return link;
     });
   }
@@ -65,18 +65,30 @@ export const processLinkData = (newData, code, t) => {
 
 const iconSelector = (code) => {
   switch (code) {
-    case "PT": return <PTIcon className="fill-path-primary-main" />;
-    case "WS": return <WSICon className="fill-path-primary-main" />;
-    case "FSM": return <FSMIcon className="fill-path-primary-main" />;
-    case "MCollect": return <MCollectIcon className="fill-path-primary-main" />;
-    case "PGR": return <PGRIcon className="fill-path-primary-main" />;
-    case "TL": return <TLIcon className="fill-path-primary-main" />;
-    case "OBPS": return <OBPSIcon className="fill-path-primary-main" />;
-    case "Bills": return <BillsIcon className="fill-path-primary-main" />;
-    case "PTR": return <PTRIcon className="fill-path-primary-main" />;
-    case "CHB": return <CHBIcon className="fill-path-primary-main" />;
-    case "ADS": return <CHBIcon className="fill-path-primary-main" />;
-    default: return <PTIcon className="fill-path-primary-main" />;
+    case "PT":
+      return <PTIcon className="fill-path-primary-main" />;
+    case "WS":
+      return <WSICon className="fill-path-primary-main" />;
+    case "FSM":
+      return <FSMIcon className="fill-path-primary-main" />;
+    case "MCollect":
+      return <MCollectIcon className="fill-path-primary-main" />;
+    case "PGR":
+      return <PGRIcon className="fill-path-primary-main" />;
+    case "TL":
+      return <TLIcon className="fill-path-primary-main" />;
+    case "OBPS":
+      return <OBPSIcon className="fill-path-primary-main" />;
+    case "Bills":
+      return <BillsIcon className="fill-path-primary-main" />;
+    case "PTR":
+      return <PTRIcon className="fill-path-primary-main" />;
+    case "CHB":
+      return <CHBIcon className="fill-path-primary-main" />;
+    case "ADS":
+      return <CHBIcon className="fill-path-primary-main" />;
+    default:
+      return <PTIcon className="fill-path-primary-main" />;
   }
 };
 
@@ -109,12 +121,12 @@ const CitizenHome = ({ modules, getCitizenMenu, fetchedCitizen, isLoading }) => 
                     Info={
                       code === "OBPS"
                         ? () => (
-                          <CitizenInfoLabel
-                            style={{ margin: "0px", padding: "10px" }}
-                            info={t("CS_FILE_APPLICATION_INFO_LABEL")}
-                            text={t(`BPA_CITIZEN_HOME_STAKEHOLDER_INCLUDES_INFO_LABEL`)}
-                          />
-                        )
+                            <CitizenInfoLabel
+                              style={{ margin: "0px", padding: "10px" }}
+                              info={t("CS_FILE_APPLICATION_INFO_LABEL")}
+                              text={t(`BPA_CITIZEN_HOME_STAKEHOLDER_INCLUDES_INFO_LABEL`)}
+                            />
+                          )
                         : null
                     }
                     isInfo={code === "OBPS" ? true : false}
@@ -142,21 +154,26 @@ const RightArrowIcon = () => (
 
 const PresentationIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
-    <rect x="8"  y="38" width="14" height="32" rx="1" fill="#ffffff" opacity="0.4"/>
-    <rect x="5"  y="30" width="8"  height="8"  rx="1" fill="#ffffff" opacity="0.4"/>
-    <rect x="25" y="26" width="20" height="44" rx="1" fill="#ffffff" opacity="0.6"/>
-    <circle cx="35" cy="12" r="2.5" fill="#ffffff" opacity="0.5"/>
+    <rect x="8" y="38" width="14" height="32" rx="1" fill="#ffffff" opacity="0.4" />
+    <rect x="5" y="30" width="8" height="8" rx="1" fill="#ffffff" opacity="0.4" />
+    <rect x="25" y="26" width="20" height="44" rx="1" fill="#ffffff" opacity="0.6" />
+    <circle cx="35" cy="12" r="2.5" fill="#ffffff" opacity="0.5" />
 
-    <rect x="48" y="34" width="14" height="36" rx="1" fill="#ffffff" opacity="0.45"/>
-    <rect x="65" y="28" width="18" height="42" rx="1" fill="#ffffff" opacity="0.55"/>
-    <rect x="86" y="40" width="12" height="30" rx="1" fill="#ffffff" opacity="0.4"/>
+    <rect x="48" y="34" width="14" height="36" rx="1" fill="#ffffff" opacity="0.45" />
+    <rect x="65" y="28" width="18" height="42" rx="1" fill="#ffffff" opacity="0.55" />
+    <rect x="86" y="40" width="12" height="30" rx="1" fill="#ffffff" opacity="0.4" />
 
-    <line x1="4" y1="70" x2="96" y2="70" stroke="#ffffff" strokeWidth="1" opacity="0.2"/>
+    <line x1="4" y1="70" x2="96" y2="70" stroke="#ffffff" strokeWidth="1" opacity="0.2" />
 
-    <path d="M4 78 Q16 70 28 78 Q40 86 52 78 Q64 70 76 78 Q88 86 96 78"
-          fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" opacity="0.9"/>
-    <path d="M4 86 Q18 80 32 86 Q46 92 60 86 Q74 80 88 86"
-          fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" opacity="0.4"/>
+    <path
+      d="M4 78 Q16 70 28 78 Q40 86 52 78 Q64 70 76 78 Q88 86 96 78"
+      fill="none"
+      stroke="#ffffff"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      opacity="0.9"
+    />
+    <path d="M4 86 Q18 80 32 86 Q46 92 60 86 Q74 80 88 86" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
   </svg>
 );
 
@@ -196,9 +213,7 @@ const ModuleCarousel = ({ modules, title }) => {
 
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
-      const scrollAmount = direction === "left"
-        ? -scrollContainerRef.current.clientWidth
-        : scrollContainerRef.current.clientWidth;
+      const scrollAmount = direction === "left" ? -scrollContainerRef.current.clientWidth : scrollContainerRef.current.clientWidth;
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
@@ -207,27 +222,17 @@ const ModuleCarousel = ({ modules, title }) => {
 
   return (
     <div className="module-carousel-section" style={{ marginBottom: "20px", marginTop: "10px" }}>
-      <div className="module-carousel-header" style={{ display: 'flex', justifyContent: title ? 'space-between' : 'flex-end', alignItems: 'center' }}>
+      <div className="module-carousel-header" style={{ display: "flex", justifyContent: title ? "space-between" : "flex-end", alignItems: "center" }}>
         {title && <h3 style={{ margin: 0, fontSize: "18px", fontWeight: "700", color: "#ffffff" }}>{title}</h3>}
-        
-        <div className="module-carousel-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <button
-            className="carousel-arrow left"
-            onClick={() => scroll("left")}
-            aria-label="Previous"
-            disabled={!showLeftArrow}
-          >
+
+        <div className="module-carousel-actions" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <button className="carousel-arrow left" onClick={() => scroll("left")} aria-label="Previous" disabled={!showLeftArrow}>
             <LeftArrowIcon />
           </button>
           <span className="carousel-pagination-text" style={{ fontSize: "14px", fontWeight: "500", color: "#505A5F" }}>
             {currentPage} / {totalPages}
           </span>
-          <button
-            className="carousel-arrow right"
-            onClick={() => scroll("right")}
-            aria-label="Next"
-            disabled={!showRightArrow}
-          >
+          <button className="carousel-arrow right" onClick={() => scroll("right")} aria-label="Next" disabled={!showRightArrow}>
             <RightArrowIcon />
           </button>
         </div>
@@ -245,7 +250,6 @@ const ModuleCarousel = ({ modules, title }) => {
     </div>
   );
 };
-
 
 const EmployeeHome = ({ modules }) => {
   const { t } = useTranslation();
@@ -271,28 +275,19 @@ const EmployeeHome = ({ modules }) => {
   };
 
   const getFormattedDate = () => {
-    return new Date().toLocaleDateString('en-IN', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long'
+    return new Date().toLocaleDateString("en-IN", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
     });
   };
 
   const greeting = getGreeting();
 
-  
-  const engagementModuleCodes = [
-    "Engagement",
-    "Events", 
-    "Documents", 
-    "Public Message broadcast", 
-    "MessageBroadcast", 
-    "Broadcast", 
-    "Surveys"
-  ];
-  
-  const engagementModules = modules.filter(mod => engagementModuleCodes.includes(mod?.code));
-  const mainModules = modules.filter(mod => !engagementModuleCodes.includes(mod?.code));
+  const engagementModuleCodes = ["Engagement", "Events", "Documents", "Public Message broadcast", "MessageBroadcast", "Broadcast", "Surveys"];
+
+  const engagementModules = modules.filter((mod) => engagementModuleCodes.includes(mod?.code));
+  const mainModules = modules.filter((mod) => !engagementModuleCodes.includes(mod?.code));
 
   return (
     <div className="employee-app-homepage-container">
@@ -302,7 +297,7 @@ const EmployeeHome = ({ modules }) => {
         <div className="header-top-section">
           <div className="header-greeting-area">
             <h1 className="greeting-title">
-              <span className="greeting-emoji">{greeting.emoji}</span> {t(greeting.text)}, {name} 
+              <span className="greeting-emoji">{greeting.emoji}</span> {t(greeting.text)}, {name}
             </h1>
             <p className="greeting-date">{getFormattedDate()}</p>
           </div>
@@ -314,7 +309,6 @@ const EmployeeHome = ({ modules }) => {
 
       <div className="employee-home-main-content">
         <div className="ground-container">
-
           <div className="top-info-cards-wrapper">
             <NewsAndEvents />
             <RecentActivity />
@@ -322,10 +316,7 @@ const EmployeeHome = ({ modules }) => {
 
           <ModuleCarousel modules={mainModules} title={t("Core Services")} />
 
-          {engagementModules.length > 0 && (
-            <ModuleCarousel modules={engagementModules} title={t("Engagement Services")} />
-          )}
-
+          {engagementModules.length > 0 && <ModuleCarousel modules={engagementModules} title={t("Engagement Services")} />}
         </div>
       </div>
     </div>

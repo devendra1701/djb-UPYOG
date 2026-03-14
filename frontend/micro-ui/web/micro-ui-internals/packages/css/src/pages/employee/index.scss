@@ -74,6 +74,22 @@
   }
 }
 
+.employee-main-application-details{
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.employee-form-content {
+  flex: 1 1 0%;
+  overflow-y: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+
 .citizen {
   .main {
     padding-top: 82px;
