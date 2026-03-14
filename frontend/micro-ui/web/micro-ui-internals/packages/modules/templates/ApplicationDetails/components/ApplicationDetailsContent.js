@@ -248,8 +248,6 @@ function ApplicationDetailsContent({
   const openFilePDF = (fileId) => {
     Digit.UploadServices.Filefetch([fileId], Digit.ULBService.getStateId())
       .then((res) => {
-        console.log("Response of file:", res);
-
         // Extract the concatenated URL string
         const concatenatedUrls = res?.data?.fileStoreIds?.[0]?.url;
 
@@ -315,9 +313,7 @@ function ApplicationDetailsContent({
             {/* Here Render the table for adjustment amount details detail.isTable is true for that table*/}
 
             {detail?.isTable && (
-              <table
-                style={{ tableLayout: "fixed", width: "100%", borderCollapse: "collapse", borderCollapse: "collapse", border: "1px solid black" }}
-              >
+              <table style={{ tableLayout: "fixed", width: "100%", borderCollapse: "collapse", border: "1px solid black" }}>
                 <tr style={{ textAlign: "left" }}>
                   {detail?.headers.map((header, index) => (
                     <th style={{ padding: "10px", paddingLeft: "5px", border: "1px solid black" }} key={index}>
@@ -342,6 +338,7 @@ function ApplicationDetailsContent({
                           <td style={{ paddingTop: "20px", textAlign: "left", border: "1px solid black", verticalAlign: "middle" }} key={idx}>
                             <div style={{ display: "flex", flexWrap: "nowrap", gap: "5px" }}>
                               {element.map((file, fileIndex) => (
+                                // eslint-disable-next-line jsx-a11y/anchor-is-valid
                                 <a
                                   key={fileIndex} // Ensure each <a> tag has a unique key
                                   onClick={() => openFilePDF(file.fileStoreId)}
@@ -355,7 +352,6 @@ function ApplicationDetailsContent({
                           </td>
                         ) : (
                           <td key={idx} style={{ paddingTop: "20px", textAlign: "left", border: "1px solid black", verticalAlign: "middle" }}>
-                            {console.log("Comming Maintainaince data row:- ", element.data)}
                             {element && element.editButton === true ? (
                               <span style={{ display: "inline-flex", gap: "10px", alignItems: "center" }}>
                                 <Link
@@ -407,7 +403,7 @@ function ApplicationDetailsContent({
                       />
                     );
                   }
-                  if (value?.isLink == true) {
+                  if (value?.isLink === true) {
                     return (
                       <Row
                         key={t(value.title)}
@@ -587,7 +583,7 @@ function ApplicationDetailsContent({
                             )
                               timelineStatusPostfix = `_NOT_DONE`;
                             else if (checkpoint?.performedAction === "SEND_TO_ARCHITECT") timelineStatusPostfix = `_BY_ARCHITECT_DONE`;
-                            else timelineStatusPostfix = index == 0 ? "" : `_DONE`;
+                            else timelineStatusPostfix = index === 0 ? "" : `_DONE`;
                           }
 
                           return (

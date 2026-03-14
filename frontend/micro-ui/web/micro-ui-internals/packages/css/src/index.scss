@@ -469,7 +469,7 @@ input[type="number"] {
   }
 }
 
-.phone-input-wrapper{
+.phone-input-wrapper {
   display: flex;
 }
 .phone-input-wrapper:hover {
@@ -482,7 +482,7 @@ input[type="number"] {
     border: 1px solid #667eea;
   }
 }
-    
+
 .text-input {
   @apply relative w-full;
 
@@ -561,8 +561,7 @@ input[type="number"] {
   flex-direction: column;
   overflow-x: scroll;
   border-radius: 6px;
-  flex:1 1 0%;
-
+  flex: 1 1 0%;
 }
 .inbox-search-container {
   .result {
@@ -723,7 +722,7 @@ input[type="number"] {
   width: 100%;
   flex: 1;
   min-width: 0;
-  margin-bottom: 56px;
+  margin-bottom: 68px;
 }
 
 .employee-app-wrapper {

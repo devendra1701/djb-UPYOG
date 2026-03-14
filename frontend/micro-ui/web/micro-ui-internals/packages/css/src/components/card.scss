@@ -61,8 +61,8 @@
   /*@apply flex  justify-center items-center;*/
 }
 
-.form-composer-card{
-    min-height: 100%;
+.form-composer-card {
+  min-height: 100%;
 }
 
 .employeeCard {
@@ -861,6 +861,7 @@
   min-height: calc(100vh - 100px);
   overflow: hidden;
   gap: 20px;
+  padding-bottom: 40px;
 }
 
 .expanded-overlay {
