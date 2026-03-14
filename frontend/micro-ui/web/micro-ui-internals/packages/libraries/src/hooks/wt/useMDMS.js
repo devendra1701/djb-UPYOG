@@ -1,28 +1,26 @@
 import { MdmsService } from "../../services/elements/MDMS";
 import { useQuery } from "react-query";
 
-const useMDMS = (tenantId, moduleCode, type, config = {}) => {
+const useWTMDMS = (tenantId, moduleCode, type, config = {}) => {
 
   const queryConfig = { staleTime: Infinity, ...config };
 
-  const useVehicleType = () => {
-    return useQuery(
-      "WT_VEHICLE_TYPE",
-      () => MdmsService.getVehicleType(tenantId, moduleCode, type),
-      queryConfig
-    );
-  };
+  const vehicleTypeQuery = useQuery(
+    "WT_VEHICLE_TYPE",
+    () => MdmsService.getVehicleType(tenantId, moduleCode, type),
+    queryConfig
+  );
 
   switch (type) {
     case "VehicleMakeModel":
-      return useVehicleType();
+      return vehicleTypeQuery;
 
     case "VehicleType":
-      return useVehicleType();
+      return vehicleTypeQuery;
 
     default:
       return null;
   }
 };
 
-export default useMDMS;
+export default useWTMDMS;

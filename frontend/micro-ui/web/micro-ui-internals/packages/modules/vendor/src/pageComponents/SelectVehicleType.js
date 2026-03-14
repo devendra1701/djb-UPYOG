@@ -6,7 +6,7 @@ const SelectVehicleType = ({ t, config, onSelect, formData, setValue }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
 
   // Fetch Vehicle Data
-  const { data: vehicleData, isLoading: vehicleLoading } = Digit.Hooks.wt.useMDMS(stateId, "Vehicle", "VehicleMakeModel");
+  const { data: vehicleData, isLoading: vehicleLoading } = Digit.Hooks.wt.useWTMDMS(stateId, "Vehicle", "VehicleMakeModel");
 
 
   console.log("vehicleData", vehicleData);
