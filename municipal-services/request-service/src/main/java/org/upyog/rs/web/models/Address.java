@@ -59,6 +59,10 @@ public class Address {
 	@NotBlank
 	private String localityCode;
 
+	private String latitude;
+
+	private String longitude;
+
 	@NotBlank
 	private String pincode;
 

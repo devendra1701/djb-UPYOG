@@ -35,6 +35,7 @@ public class RequestServiceQueryBuilder {
                     "urad.applicant_id, urad.name, urad.mobile_number as applicant_mobile, urad.email_id, urad.alternate_number, " +
                     "uraddr.address_id, uraddr.house_no, uraddr.address_line_1, uraddr.address_line_2, uraddr.street_name, " +
                     "uraddr.landmark, uraddr.city, uraddr.city_code, uraddr.locality, uraddr.locality_code as addr_locality_code, uraddr.pincode " +
+                    "uraddr.latitude, uraddr.longitude "+
                     "FROM public.upyog_rs_water_tanker_booking_details ursbd " +
                     "INNER JOIN public.upyog_rs_water_tanker_applicant_details urad ON ursbd.booking_id = urad.booking_id " +
                     "INNER JOIN public.upyog_rs_water_tanker_address_details uraddr ON urad.applicant_id = uraddr.applicant_id"
@@ -56,6 +57,7 @@ public class RequestServiceQueryBuilder {
                     "urad.applicant_id, urad.name, urad.mobile_number as applicant_mobile, urad.email_id, urad.alternate_number, " +
                     "uraddr.address_id, uraddr.house_no, uraddr.address_line_1, uraddr.address_line_2, uraddr.street_name, " +
                     "uraddr.landmark, uraddr.city, uraddr.city_code, uraddr.locality, uraddr.locality_code as addr_locality_code, uraddr.pincode " +
+                    "uraddr.latitude, uraddr.longitude "+
                     "FROM public.upyog_rs_mobile_toilet_booking_details urmt " +
                     "INNER JOIN public.upyog_rs_mobile_toilet_applicant_details urad ON urmt.booking_id = urad.booking_id " +
                     "INNER JOIN public.upyog_rs_mobile_toilet_address_details uraddr ON urad.applicant_id = uraddr.applicant_id"

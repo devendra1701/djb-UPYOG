@@ -232,6 +232,8 @@ public class GenericRowMapper<T> implements ResultSetExtractor<List<T>> {
             address.setCityCode(rs.getString("city_code"));
             address.setLocality(rs.getString("locality"));
             address.setLocalityCode(rs.getString("locality_code"));
+            address.setLatitude(rs.getString("latitude"));
+            address.setLongitude(rs.getString("longitude"));
             address.setPincode(rs.getString("pincode"));
             return address;
         } catch (SQLException e) {

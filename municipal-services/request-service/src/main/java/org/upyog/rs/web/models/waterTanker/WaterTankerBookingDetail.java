@@ -108,6 +108,10 @@ public class WaterTankerBookingDetail {
 
 	private String localityCode;
 
+	private String latitude;
+
+	private String longitude;
+
 	@Valid
 	@NotNull
 	private ApplicantDetail applicantDetail;
